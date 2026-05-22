@@ -1,15 +1,28 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import {
   Search, MapPin, ChevronRight, ArrowRight,
   Loader2, CheckCircle2, Phone, Users, Star,
+  ChevronDown, X, Locate,
 } from 'lucide-react'
 import type { PlaceRow, CitySlug, PlaceCategory } from '@/lib/database.types'
 import { CITY_LABELS, buildPlaceTags, buildVerifTag } from '@/lib/places'
 
-const CITIES: CitySlug[] = ['guangzhou', 'shenzhen', 'hongkong']
+const CITY_SLUGS: CitySlug[] = ['guangzhou', 'shenzhen', 'hongkong']
+
+const CITY_DESCRIPTIONS: Record<CitySlug, string> = {
+  guangzhou: '千年花城 · 美食之都',
+  shenzhen:  '创意之城 · 湾区核心',
+  hongkong:  '东方之珠 · 国际都会',
+}
+
+const GEO_CITIES: { slug: CitySlug; lat: number; lng: number }[] = [
+  { slug: 'guangzhou', lat: 23.12, lng: 113.26 },
+  { slug: 'shenzhen',  lat: 22.54, lng: 114.06 },
+  { slug: 'hongkong',  lat: 22.32, lng: 114.17 },
+]
 
 const CATEGORIES: { value: PlaceCategory; label: string; emoji: string }[] = [
   { value: 'cafe',       label: '咖啡店',   emoji: '☕' },
@@ -21,12 +34,52 @@ const CATEGORIES: { value: PlaceCategory; label: string; emoji: string }[] = [
   { value: 'transport',  label: '宠物运输', emoji: '🚗' },
 ]
 
-export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [activeCity, setActiveCity] = useState<CitySlug>('guangzhou')
-  const [places, setPlaces] = useState<PlaceRow[]>([])
-  const [loading, setLoading] = useState(true)
+function findNearestCity(lat: number, lng: number): CitySlug {
+  return GEO_CITIES.reduce((nearest, city) => {
+    const d  = Math.hypot(lat - city.lat,    lng - city.lng)
+    const dn = Math.hypot(lat - nearest.lat, lng - nearest.lng)
+    return d < dn ? city : nearest
+  }).slug
+}
 
+export default function HomePage() {
+  const [searchQuery, setSearchQuery]   = useState('')
+  const [activeCity, setActiveCity]     = useState<CitySlug>('guangzhou')
+  const [places, setPlaces]             = useState<PlaceRow[]>([])
+  const [loading, setLoading]           = useState(true)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [sheetOpen, setSheetOpen]       = useState(false)
+  const [locating, setLocating]         = useState(false)
+
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // ── Read city from URL / localStorage / geolocation on mount ─
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('city') as CitySlug | null
+    if (param && CITY_SLUGS.includes(param)) {
+      setActiveCity(param)
+      return
+    }
+    const saved = localStorage.getItem('doumiao_city') as CitySlug | null
+    if (saved && CITY_SLUGS.includes(saved)) {
+      setActiveCity(saved)
+      return
+    }
+    // Silently try geolocation as fallback
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const city = findNearestCity(pos.coords.latitude, pos.coords.longitude)
+          setActiveCity(city)
+          localStorage.setItem('doumiao_city', city)
+        },
+        () => {},
+        { timeout: 4000, maximumAge: 3600000 }
+      )
+    }
+  }, [])
+
+  // ── Fetch places when city changes ───────────────────────────
   useEffect(() => {
     let cancelled = false
     setLoading(true)
@@ -38,8 +91,43 @@ export default function HomePage() {
     return () => { cancelled = true }
   }, [activeCity])
 
-  const featured = places.filter((p) => p.is_featured).slice(0, 6)
-  const display = featured.length > 0 ? featured : places.slice(0, 6)
+  // ── Close dropdown on outside click ─────────────────────────
+  useEffect(() => {
+    if (!dropdownOpen) return
+    function handler(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [dropdownOpen])
+
+  // ── Select city ───────────────────────────────────────────────
+  const selectCity = useCallback((city: CitySlug) => {
+    setActiveCity(city)
+    localStorage.setItem('doumiao_city', city)
+    const url = new URL(window.location.href)
+    url.searchParams.set('city', city)
+    window.history.pushState({}, '', url)
+    setDropdownOpen(false)
+    setSheetOpen(false)
+  }, [])
+
+  // ── Geolocate on demand ──────────────────────────────────────
+  const handleGeolocate = useCallback(() => {
+    if (!navigator.geolocation) return
+    setLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const city = findNearestCity(pos.coords.latitude, pos.coords.longitude)
+        selectCity(city)
+        setLocating(false)
+      },
+      () => setLocating(false),
+      { timeout: 6000 }
+    )
+  }, [selectCity])
 
   function handleSearch() {
     const params = new URLSearchParams()
@@ -48,10 +136,13 @@ export default function HomePage() {
     window.location.href = `/places?${params}`
   }
 
+  const featured = places.filter((p) => p.is_featured).slice(0, 6)
+  const display  = featured.length > 0 ? featured : places.slice(0, 6)
+
   return (
     <div className="min-h-screen bg-[#FDFAF4] pb-20 md:pb-0">
 
-      {/* ── Desktop/tablet sticky header (hidden on mobile) ── */}
+      {/* ── Desktop sticky header ── */}
       <header className="hidden md:flex sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-[#EDE8E0] shadow-[0_1px_8px_rgba(60,30,10,0.05)]">
         <div className="max-w-screen-xl mx-auto w-full px-8 h-[64px] flex items-center gap-6">
           <div className="flex items-center gap-2.5 shrink-0">
@@ -70,7 +161,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* ── Mobile hero (hidden on tablet+) ── */}
+      {/* ── Mobile hero ── */}
       <div className="md:hidden hero-gradient px-4 pt-8 pb-6">
         <div className="flex items-center gap-2 mb-5">
           <div className="w-9 h-9 rounded-xl bg-[#E0813D] flex items-center justify-center shadow-md">
@@ -85,35 +176,38 @@ export default function HomePage() {
           发现真正欢迎<br />毛孩子的地方
         </h1>
         <p className="text-[13px] text-[#A07855] mb-4">标准化宠物友好信息，可搜索，可验证</p>
-        <div className="flex gap-2 mb-3">
-          {CITIES.map((city) => (
-            <button key={city} onClick={() => setActiveCity(city)}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-[13px] font-medium transition-all ${
-                activeCity === city ? 'bg-[#E0813D] text-white shadow-sm' : 'bg-white/70 text-[#7C5A42] border border-[#E8DCCB]'
-              }`}
-            >
-              <MapPin size={10} />{CITY_LABELS[city]}
-            </button>
-          ))}
-        </div>
-        <div className="relative">
-          <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
-          <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            placeholder="搜索酒店 / 餐厅 / 咖啡店..."
-            className="w-full pl-10 pr-16 py-3 bg-white rounded-2xl border border-[#E8DCCB] text-[14px] text-[#1E1209] placeholder-[#C4A07E] shadow-[0_2px_8px_rgba(60,30,10,0.06)] focus:outline-none"
-          />
-          {searchQuery && (
-            <button onClick={handleSearch}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 bg-[#E0813D] text-white text-[12px] px-3 py-1.5 rounded-xl font-medium"
-            >
-              搜索
-            </button>
-          )}
+
+        {/* Mobile: city pill + search bar, side by side */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setSheetOpen(true)}
+            className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm border border-[#E8DCCB] rounded-xl px-3 py-2.5 text-[13px] font-medium text-[#1E1209] shrink-0 shadow-sm active:bg-[#F5EBD8] transition-colors"
+          >
+            <MapPin size={12} className="text-[#E0813D]" />
+            {CITY_LABELS[activeCity]}
+            <ChevronDown size={12} className="text-[#A09080]" />
+          </button>
+          <div className="flex-1 relative">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              placeholder={`在${CITY_LABELS[activeCity]}找地方…`}
+              className="w-full pl-9 pr-12 py-2.5 bg-white rounded-xl border border-[#E8DCCB] text-[13px] text-[#1E1209] placeholder-[#C4A07E] shadow-sm focus:outline-none"
+            />
+            {searchQuery && (
+              <button onClick={handleSearch}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#E0813D] text-white text-[11px] px-2.5 py-1 rounded-lg font-medium">
+                搜索
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* ── Desktop hero (hidden on mobile) ── */}
+      {/* ── Desktop hero ── */}
       <section className="hidden md:block max-w-screen-xl mx-auto px-8 pt-16 pb-12 text-center">
         <div className="max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-[#FFF3E8] text-[#E0813D] text-[13px] font-medium px-3.5 py-1.5 rounded-full mb-6 border border-[#F5C49A]">
@@ -125,30 +219,73 @@ export default function HomePage() {
           <p className="text-[17px] text-[#7C5A42] mb-10 leading-relaxed">
             标准化宠物友好信息，经过实地验证，可搜索，可信赖
           </p>
-          <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(60,30,10,0.10)] border border-[#EDE8E0] p-2 flex items-center gap-2">
-            <div className="flex gap-1 pl-1">
-              {CITIES.map((city) => (
-                <button key={city} onClick={() => setActiveCity(city)}
-                  className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-all whitespace-nowrap ${
-                    activeCity === city ? 'bg-[#1E1209] text-white' : 'text-[#7C5A42] hover:bg-[#F5EBD8]'
-                  }`}
-                >
-                  <MapPin size={11} />{CITY_LABELS[city]}
-                </button>
-              ))}
+
+          {/* Desktop: city selector + search bar */}
+          <div className="flex items-center gap-3 max-w-xl mx-auto">
+
+            {/* City selector */}
+            <div ref={dropdownRef} className="relative shrink-0">
+              <button
+                onClick={() => setDropdownOpen((o) => !o)}
+                className={`flex items-center gap-2 bg-white border rounded-2xl px-4 py-3 text-[14px] font-medium transition-all shadow-sm ${
+                  dropdownOpen
+                    ? 'border-[#E0813D] text-[#1E1209] shadow-[0_0_0_3px_rgba(224,129,61,0.12)]'
+                    : 'border-[#EDE8E0] text-[#1E1209] hover:border-[#E0813D]'
+                }`}
+              >
+                <MapPin size={14} className="text-[#E0813D]" />
+                {CITY_LABELS[activeCity]}
+                <ChevronDown size={13} className={`text-[#A09080] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown */}
+              {dropdownOpen && (
+                <div className="absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-[0_8px_40px_rgba(30,18,9,0.14)] border border-[#EDE8E0] py-1.5 min-w-[190px] z-30">
+                  <div className="px-3.5 pt-1 pb-2 text-[11px] font-semibold text-[#B09880] uppercase tracking-wider">
+                    选择城市
+                  </div>
+                  {CITY_SLUGS.map((city) => (
+                    <button key={city} onClick={() => selectCity(city)}
+                      className={`w-full flex items-center gap-3 px-3.5 py-2.5 text-left transition-colors ${
+                        activeCity === city
+                          ? 'text-[#1E1209]'
+                          : 'text-[#6B5744] hover:bg-[#FAF5EE]'
+                      }`}>
+                      <div className={`w-2 h-2 rounded-full shrink-0 ${activeCity === city ? 'bg-[#E0813D]' : 'bg-[#E8DCCB]'}`} />
+                      <div>
+                        <div className={`text-[14px] ${activeCity === city ? 'font-semibold' : 'font-medium'}`}>{CITY_LABELS[city]}</div>
+                        <div className="text-[11px] text-[#B09880]">{CITY_DESCRIPTIONS[city]}</div>
+                      </div>
+                      {activeCity === city && (
+                        <CheckCircle2 size={14} className="text-[#E0813D] ml-auto shrink-0" />
+                      )}
+                    </button>
+                  ))}
+                  <div className="mx-3 my-1 border-t border-[#F0EAE0]" />
+                  <button onClick={handleGeolocate} disabled={locating}
+                    className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] text-[#A09080] hover:text-[#6B5744] hover:bg-[#FAF5EE] transition-colors">
+                    {locating ? <Loader2 size={13} className="animate-spin" /> : <Locate size={13} />}
+                    自动定位
+                  </button>
+                </div>
+              )}
             </div>
-            <div className="w-px h-5 bg-[#EDE8E0] shrink-0" />
-            <div className="flex-1 relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
-              <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+
+            {/* Search input */}
+            <div className="flex-1 relative bg-white rounded-2xl border border-[#EDE8E0] shadow-sm hover:border-[#E0813D] focus-within:border-[#E0813D] focus-within:shadow-[0_0_0_3px_rgba(224,129,61,0.10)] transition-all">
+              <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                placeholder="搜索咖啡店、酒店、寄养..."
-                className="w-full pl-9 pr-4 py-2.5 text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none bg-transparent"
+                placeholder={`在${CITY_LABELS[activeCity]}搜索咖啡店、酒店…`}
+                className="w-full pl-9 pr-4 py-3 text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none bg-transparent"
               />
             </div>
+
             <button onClick={handleSearch}
-              className="bg-[#E0813D] hover:bg-[#CC7030] text-white px-5 py-2.5 rounded-xl text-[14px] font-semibold transition-colors shrink-0"
-            >
+              className="bg-[#E0813D] hover:bg-[#CC7030] text-white px-5 py-3 rounded-2xl text-[14px] font-semibold transition-colors shrink-0 shadow-sm">
               搜索
             </button>
           </div>
@@ -163,25 +300,21 @@ export default function HomePage() {
             查看全部 <ChevronRight size={13} />
           </Link>
         </div>
-        {/* Mobile: horizontal scroll */}
         <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
           <div className="flex gap-2.5 pb-1 min-w-max">
             {CATEGORIES.map(({ value, label, emoji }) => (
-              <Link key={value} href={`/places?category=${value}`}
-                className="flex flex-col items-center gap-1.5 bg-white rounded-2xl border border-[#EDE8E0] px-4 py-3 hover:border-[#F5A462] transition-colors min-w-[68px]"
-              >
+              <Link key={value} href={`/places?category=${value}&city=${activeCity}`}
+                className="flex flex-col items-center gap-1.5 bg-white rounded-2xl border border-[#EDE8E0] px-4 py-3 hover:border-[#F5A462] transition-colors min-w-[68px]">
                 <span className="text-[22px]">{emoji}</span>
                 <span className="text-[11px] font-medium text-[#5C3D20] whitespace-nowrap">{label}</span>
               </Link>
             ))}
           </div>
         </div>
-        {/* Desktop: 4→7 col grid */}
         <div className="hidden md:grid grid-cols-4 lg:grid-cols-7 gap-3">
           {CATEGORIES.map(({ value, label, emoji }) => (
-            <Link key={value} href={`/places?category=${value}`}
-              className="flex flex-col items-center gap-2.5 bg-white rounded-2xl border border-[#EDE8E0] py-5 hover:border-[#F5A462] hover:shadow-[0_2px_12px_rgba(224,129,61,0.12)] transition-all group"
-            >
+            <Link key={value} href={`/places?category=${value}&city=${activeCity}`}
+              className="flex flex-col items-center gap-2.5 bg-white rounded-2xl border border-[#EDE8E0] py-5 hover:border-[#F5A462] hover:shadow-[0_2px_12px_rgba(224,129,61,0.12)] transition-all group">
               <span className="text-[24px] group-hover:scale-110 transition-transform">{emoji}</span>
               <span className="text-[12px] font-medium text-[#5C3D20]">{label}</span>
             </Link>
@@ -219,8 +352,7 @@ export default function HomePage() {
         {display.length > 0 && (
           <div className="mt-5 md:mt-8 text-center">
             <Link href={`/places?city=${activeCity}`}
-              className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] font-medium text-[#7C5A42] hover:bg-white transition-all"
-            >
+              className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] font-medium text-[#7C5A42] hover:bg-white transition-all">
               查看 {CITY_LABELS[activeCity]} 全部地点 <ArrowRight size={13} />
             </Link>
           </div>
@@ -285,8 +417,7 @@ export default function HomePage() {
             </p>
           </div>
           <Link href="/partner"
-            className="mt-5 md:mt-6 flex items-center justify-center gap-2 bg-[#E0813D] hover:bg-[#CC7030] text-white py-3 md:py-3.5 rounded-xl font-medium text-[13px] md:text-[14px] transition-colors"
-          >
+            className="mt-5 md:mt-6 flex items-center justify-center gap-2 bg-[#E0813D] hover:bg-[#CC7030] text-white py-3 md:py-3.5 rounded-xl font-medium text-[13px] md:text-[14px] transition-colors">
             立即申请入驻 <ArrowRight size={14} />
           </Link>
         </div>
@@ -303,6 +434,67 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* ── Mobile city bottom sheet ── */}
+      {sheetOpen && (
+        <>
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-black/40 z-40 md:hidden"
+            onClick={() => setSheetOpen(false)}
+          />
+          {/* Sheet */}
+          <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 md:hidden pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+            {/* Handle */}
+            <div className="flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1 rounded-full bg-[#E8DCCB]" />
+            </div>
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-3">
+              <span className="font-bold text-[#1E1209] text-[16px]">选择城市</span>
+              <button onClick={() => setSheetOpen(false)}
+                className="w-7 h-7 rounded-full bg-[#F5EFE6] flex items-center justify-center">
+                <X size={14} className="text-[#7C5A42]" />
+              </button>
+            </div>
+
+            {/* City options */}
+            <div className="px-4 pb-2 space-y-1">
+              {CITY_SLUGS.map((city) => (
+                <button key={city} onClick={() => selectCity(city)}
+                  className={`w-full flex items-center gap-4 px-4 py-4 rounded-2xl transition-colors text-left ${
+                    activeCity === city ? 'bg-[#FFF0E2] border border-[#F5C49A]' : 'hover:bg-[#FAF7F2]'
+                  }`}>
+                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${
+                    activeCity === city ? 'bg-[#E0813D]' : 'bg-[#F5EBD8]'
+                  }`}>
+                    <MapPin size={16} className={activeCity === city ? 'text-white' : 'text-[#C4A07E]'} />
+                  </div>
+                  <div className="flex-1">
+                    <div className={`text-[15px] font-semibold ${activeCity === city ? 'text-[#1E1209]' : 'text-[#3A2518]'}`}>
+                      {CITY_LABELS[city]}
+                    </div>
+                    <div className="text-[12px] text-[#A09080] mt-0.5">{CITY_DESCRIPTIONS[city]}</div>
+                  </div>
+                  {activeCity === city && <CheckCircle2 size={16} className="text-[#E0813D] shrink-0" />}
+                </button>
+              ))}
+
+              {/* Geolocate */}
+              <button onClick={handleGeolocate} disabled={locating}
+                className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl hover:bg-[#FAF7F2] transition-colors">
+                <div className="w-10 h-10 rounded-2xl bg-[#F5EBD8] flex items-center justify-center shrink-0">
+                  {locating ? <Loader2 size={16} className="text-[#C4A07E] animate-spin" /> : <Locate size={16} className="text-[#C4A07E]" />}
+                </div>
+                <div className="flex-1">
+                  <div className="text-[15px] font-semibold text-[#3A2518]">自动定位</div>
+                  <div className="text-[12px] text-[#A09080] mt-0.5">根据当前位置选择最近城市</div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
@@ -314,6 +506,7 @@ function HomeCard({ place }: { place: PlaceRow }) {
   return (
     <Link href={`/places/${place.id}`} className="group bg-white rounded-2xl border border-[#EDE8E0] overflow-hidden hover:shadow-card-hover transition-all">
       <div className="aspect-[4/3] overflow-hidden relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={cover} alt={place.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         {verifTag && (
           <span className={`absolute top-2.5 left-2.5 text-[11px] font-medium px-2 py-0.5 rounded-full border backdrop-blur-sm ${verifTag.style}`}>
