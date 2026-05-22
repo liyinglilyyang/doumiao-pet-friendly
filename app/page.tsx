@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import {
-  Search, MapPin, ChevronRight, ArrowRight,
+  Search, MapPin, ChevronRight, ChevronLeft, ArrowRight,
   Loader2, CheckCircle2, Phone, Users, Star,
   ChevronDown, X, Locate,
 } from 'lucide-react'
@@ -52,6 +52,19 @@ const COL_B = [
   { url: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=320&q=70', label: '一起出行',   h: 160 },
   { url: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=320&q=70', label: '城市生活',   h: 196 },
   { url: 'https://images.unsplash.com/photo-1534361960057-19f4434a4d37?auto=format&fit=crop&w=320&q=70', label: '狗狗的一天', h: 168 },
+]
+
+// ── Hero photo strip (desktop) ───────────────────────────────
+
+type HeroPhoto = { url: string; label: string; w: number; snippet?: { text: string; city: string; type: string } }
+
+const HERO_STRIP: HeroPhoto[] = [
+  { url: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=480&q=75', label: '咖啡店里的狗狗', w: 240, snippet: { text: '店员主动递水', city: '广州', type: '咖啡店' } },
+  { url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=480&q=75', label: '户外漫步时光',   w: 320 },
+  { url: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=480&q=75', label: '一起出行',        w: 280, snippet: { text: '20kg 以内可进室内', city: '深圳', type: '餐厅' } },
+  { url: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=480&q=75', label: '城市生活',        w: 260 },
+  { url: 'https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?auto=format&fit=crop&w=480&q=75', label: '宠物友好空间', w: 300, snippet: { text: '晚上遛狗氛围很好', city: '香港', type: '公园' } },
+  { url: 'https://images.unsplash.com/photo-1534361960057-19f4434a4d37?auto=format&fit=crop&w=480&q=75', label: '狗狗的一天',   w: 240 },
 ]
 
 // ── Observation cards (小红书 style) ──────────────────────────
@@ -145,7 +158,8 @@ export default function HomePage() {
   const [sheetOpen, setSheetOpen]       = useState(false)
   const [locating, setLocating]         = useState(false)
 
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownRef     = useRef<HTMLDivElement>(null)
+  const observationsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const param = new URLSearchParams(window.location.search).get('city') as CitySlug | null
@@ -298,130 +312,137 @@ export default function HomePage() {
         </div>{/* /px-4 */}
       </div>
 
-      {/* ── Desktop hero: 2-col ── */}
-      <section className="hidden md:block relative overflow-hidden"
-        style={{ background: 'linear-gradient(140deg, #FFF8EE 0%, #FDFAF4 60%, #F5EBD8 100%)' }}>
-        <div className="absolute top-0 right-0 w-[480px] h-[480px] rounded-full bg-[#E0813D]/4 -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[#F0BE56]/5 translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+      {/* ── Desktop hero: centered ── */}
+      <section className="hidden md:block"
+        style={{ background: 'linear-gradient(180deg, #FFF8EE 0%, #FDFAF4 100%)' }}>
 
-        <div className="max-w-screen-xl mx-auto px-8 pt-20 pb-20 flex items-center gap-16 lg:gap-24 relative z-10">
-
-          {/* Left: headline + search */}
-          <div className="flex-1 min-w-0 max-w-[520px]">
-            <h1 className="text-[46px] lg:text-[54px] font-bold text-[#1E1209] leading-[1.12] tracking-tight mb-5">
-              发现真正欢迎<br />毛孩子的地方
-            </h1>
-            <p className="text-[16px] text-[#9C7055] mb-10 leading-relaxed">
-              标准化、真实验证、可搜索的宠物友好地图
-            </p>
-
-            {/* City selector + search */}
-            <div className="flex items-center gap-3 max-w-[500px]">
-              <div ref={dropdownRef} className="relative shrink-0">
-                <button onClick={() => setDropdownOpen((o) => !o)}
-                  className={`flex items-center gap-2 bg-white border rounded-2xl px-4 py-3 text-[14px] font-medium transition-all shadow-sm ${
-                    dropdownOpen ? 'border-[#E0813D] shadow-[0_0_0_3px_rgba(224,129,61,0.12)]' : 'border-[#EDE8E0] hover:border-[#D4C5B0]'
-                  }`}>
-                  <MapPin size={14} className="text-[#E0813D]" />
-                  {CITY_LABELS[activeCity]}
-                  <ChevronDown size={13} className={`text-[#A09080] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {dropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-[0_8px_40px_rgba(30,18,9,0.14)] border border-[#EDE8E0] py-1.5 min-w-[190px] z-30">
-                    <div className="px-3.5 pt-1 pb-2 text-[11px] font-semibold text-[#B09880] uppercase tracking-wider">选择城市</div>
-                    {CITY_SLUGS.map((city) => (
-                      <button key={city} onClick={() => selectCity(city)}
-                        className={`w-full flex items-center gap-3 px-3.5 py-2.5 text-left transition-colors ${
-                          activeCity === city ? 'text-[#1E1209]' : 'text-[#6B5744] hover:bg-[#FAF5EE]'
-                        }`}>
-                        <div className={`w-2 h-2 rounded-full shrink-0 ${activeCity === city ? 'bg-[#E0813D]' : 'bg-[#E8DCCB]'}`} />
-                        <div>
-                          <div className={`text-[14px] ${activeCity === city ? 'font-semibold' : 'font-medium'}`}>{CITY_LABELS[city]}</div>
-                          <div className="text-[11px] text-[#B09880]">{CITY_DESCRIPTIONS[city]}</div>
-                        </div>
-                        {activeCity === city && <CheckCircle2 size={14} className="text-[#E0813D] ml-auto shrink-0" />}
-                      </button>
-                    ))}
-                    <div className="mx-3 my-1 border-t border-[#F0EAE0]" />
-                    <button onClick={handleGeolocate} disabled={locating}
-                      className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] text-[#A09080] hover:text-[#6B5744] hover:bg-[#FAF5EE] transition-colors">
-                      {locating ? <Loader2 size={13} className="animate-spin" /> : <Locate size={13} />}
-                      自动定位
-                    </button>
+        {/* Full-width horizontal photo strip */}
+        <div className="relative overflow-hidden pt-10"
+          style={{
+            maskImage: 'linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%)',
+          }}>
+          <div className="flex gap-4 pb-8"
+            style={{ animation: 'photoStripH 52s linear infinite', width: 'max-content', willChange: 'transform' }}>
+            {[...HERO_STRIP, ...HERO_STRIP].map((p, i) => (
+              <div key={i}
+                className="relative shrink-0 rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(30,18,9,0.08)]"
+                style={{ width: p.w, height: 196 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.url} alt={p.label} className="w-full h-full object-cover"
+                  style={{ filter: 'saturate(0.74) brightness(0.93)' }} />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/15 to-[#E0813D]/10" />
+                {p.snippet && (
+                  <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 shadow-[0_2px_10px_rgba(30,18,9,0.10)]">
+                    <p className="text-[11px] font-semibold text-[#1E1209] leading-tight">{p.snippet.text}</p>
+                    <p className="text-[10px] text-[#A07855] mt-0.5">{p.snippet.city} · {p.snippet.type}</p>
                   </div>
                 )}
               </div>
+            ))}
+          </div>
+        </div>
 
-              <div className="flex-1 relative bg-white rounded-2xl border border-[#EDE8E0] shadow-sm hover:border-[#D4C5B0] focus-within:border-[#E0813D] focus-within:shadow-[0_0_0_3px_rgba(224,129,61,0.10)] transition-all">
-                <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
-                <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+        {/* Centered headline + search */}
+        <div className="max-w-[660px] mx-auto px-8 pt-10 pb-20 text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-[#FFF0E2] border border-[#F5C49A]/80 rounded-full px-4 py-1.5 mb-8">
+            <span className="text-[13px]">🌱</span>
+            <span className="text-[12px] font-semibold text-[#E0813D] tracking-wide">广深港宠物友好地图</span>
+          </div>
+
+          {/* H1 */}
+          <h1 className="text-[52px] lg:text-[62px] font-bold text-[#1E1209] leading-[1.08] tracking-tight mb-4">
+            发现真正欢迎<br />毛孩子的地方
+          </h1>
+          <p className="text-[16px] lg:text-[17px] text-[#9C7055] mb-10 leading-relaxed">
+            标准化、真实验证、可搜索的宠物友好地图
+          </p>
+
+          {/* Airbnb-style unified pill search */}
+          <div ref={dropdownRef} className="relative">
+            <div className="flex items-stretch bg-white rounded-2xl shadow-[0_4px_32px_rgba(30,18,9,0.10)] border border-[#EDE8E0] overflow-hidden">
+              {/* City selector */}
+              <button
+                onClick={() => setDropdownOpen((o) => !o)}
+                className="flex items-center gap-2 pl-5 pr-4 border-r border-[#EDE8E0] shrink-0 hover:bg-[#FAF7F2] transition-colors">
+                <MapPin size={14} className="text-[#E0813D]" />
+                <span className="text-[14px] font-semibold text-[#1E1209]">{CITY_LABELS[activeCity]}</span>
+                <ChevronDown size={13} className={`text-[#A09080] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Search input */}
+              <div className="flex-1 relative">
+                <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  placeholder={`在${CITY_LABELS[activeCity]}搜索…`}
-                  className="w-full pl-9 pr-4 py-3 text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none bg-transparent" />
+                  placeholder={`在${CITY_LABELS[activeCity]}搜索地点…`}
+                  className="w-full pl-10 pr-4 py-4 text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none bg-transparent" />
               </div>
 
-              <button onClick={handleSearch}
-                className="bg-[#E0813D] hover:bg-[#CC7030] text-white px-5 py-3 rounded-2xl text-[14px] font-semibold transition-colors shrink-0 shadow-sm">
+              {/* Search button */}
+              <button
+                onClick={handleSearch}
+                className="bg-[#E0813D] hover:bg-[#CC7030] text-white px-7 text-[14px] font-semibold transition-colors shrink-0 flex items-center gap-2">
+                <Search size={14} />
                 搜索
               </button>
             </div>
-          </div>
 
-          {/* Right: slow-scrolling photo mosaic */}
-          <div className="w-[272px] lg:w-[308px] shrink-0">
-            <div className="relative h-[440px] overflow-hidden rounded-2xl"
-              style={{
-                maskImage: 'linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%)',
-              }}>
-              <div className="flex gap-2.5 h-full">
-
-                {/* Column A — scrolls at one speed */}
-                <div className="flex-1 flex flex-col gap-2.5"
-                  style={{ animation: 'photoMosaicA 32s linear infinite', willChange: 'transform' }}>
-                  {[...COL_A, ...COL_A].map((p, i) => (
-                    <div key={i}
-                      className="relative shrink-0 rounded-2xl overflow-hidden shadow-[0_4px_18px_rgba(30,18,9,0.13)]"
-                      style={{ height: p.h }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.url} alt={p.label} className="w-full h-full object-cover"
-                        style={{ filter: 'saturate(0.78) brightness(0.92)' }} />
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/18 to-[#E0813D]/14" />
+            {/* City dropdown */}
+            {dropdownOpen && (
+              <div className="absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-[0_8px_40px_rgba(30,18,9,0.14)] border border-[#EDE8E0] py-1.5 min-w-[200px] z-30 text-left">
+                <div className="px-3.5 pt-1 pb-2 text-[11px] font-semibold text-[#B09880] uppercase tracking-wider">选择城市</div>
+                {CITY_SLUGS.map((city) => (
+                  <button key={city} onClick={() => selectCity(city)}
+                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 text-left transition-colors ${
+                      activeCity === city ? 'text-[#1E1209]' : 'text-[#6B5744] hover:bg-[#FAF5EE]'
+                    }`}>
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${activeCity === city ? 'bg-[#E0813D]' : 'bg-[#E8DCCB]'}`} />
+                    <div>
+                      <div className={`text-[14px] ${activeCity === city ? 'font-semibold' : 'font-medium'}`}>{CITY_LABELS[city]}</div>
+                      <div className="text-[11px] text-[#B09880]">{CITY_DESCRIPTIONS[city]}</div>
                     </div>
-                  ))}
-                </div>
-
-                {/* Column B — different speed + time offset for stagger */}
-                <div className="flex-1 flex flex-col gap-2.5"
-                  style={{ animation: 'photoMosaicB 42s linear infinite', animationDelay: '-16s', willChange: 'transform' }}>
-                  {[...COL_B, ...COL_B].map((p, i) => (
-                    <div key={i}
-                      className="relative shrink-0 rounded-2xl overflow-hidden shadow-[0_4px_18px_rgba(30,18,9,0.13)]"
-                      style={{ height: p.h }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.url} alt={p.label} className="w-full h-full object-cover"
-                        style={{ filter: 'saturate(0.78) brightness(0.92)' }} />
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/18 to-[#E0813D]/14" />
-                    </div>
-                  ))}
-                </div>
-
+                    {activeCity === city && <CheckCircle2 size={14} className="text-[#E0813D] ml-auto shrink-0" />}
+                  </button>
+                ))}
+                <div className="mx-3 my-1 border-t border-[#F0EAE0]" />
+                <button onClick={handleGeolocate} disabled={locating}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] text-[#A09080] hover:text-[#6B5744] hover:bg-[#FAF5EE] transition-colors">
+                  {locating ? <Loader2 size={13} className="animate-spin" /> : <Locate size={13} />}
+                  自动定位
+                </button>
               </div>
-            </div>
+            )}
           </div>
-
         </div>
       </section>
 
       {/* ── 真实宠物主观察 — 小红书精选 style ── */}
       <section className="pt-10 pb-12 md:pt-14 md:pb-16">
-        <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 mb-5 md:mb-6">
-          <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">真实宠物主观察</h2>
-          <p className="text-[11px] md:text-[13px] text-[#A09080] mt-1">来自铲屎官的第一手记录</p>
+        <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 mb-5 md:mb-6 flex items-end justify-between">
+          <div>
+            <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">真实宠物主观察</h2>
+            <p className="text-[11px] md:text-[13px] text-[#A09080] mt-1">来自铲屎官的第一手记录</p>
+          </div>
+          <div className="hidden md:flex items-center gap-2">
+            <button
+              onClick={() => observationsRef.current?.scrollBy({ left: -280, behavior: 'smooth' })}
+              className="w-9 h-9 rounded-full bg-white border border-[#EDE8E0] flex items-center justify-center hover:border-[#D4C5B0] hover:shadow-sm transition-all">
+              <ChevronLeft size={16} className="text-[#7C5A42]" />
+            </button>
+            <button
+              onClick={() => observationsRef.current?.scrollBy({ left: 280, behavior: 'smooth' })}
+              className="w-9 h-9 rounded-full bg-white border border-[#EDE8E0] flex items-center justify-center hover:border-[#D4C5B0] hover:shadow-sm transition-all">
+              <ChevronRight size={16} className="text-[#7C5A42]" />
+            </button>
+          </div>
         </div>
 
-        <div className="overflow-x-auto scrollbar-hide">
+        <div ref={observationsRef} className="overflow-x-auto scrollbar-hide">
           <div className="flex gap-3 md:gap-4 px-4 md:px-8 pb-2" style={{ width: 'max-content' }}>
             {OBSERVATIONS.map((obs) => (
               <div key={obs.text}
