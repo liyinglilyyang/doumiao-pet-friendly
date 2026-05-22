@@ -112,11 +112,11 @@ export default function PlaceCard({ place, variant = 'grid' }: PlaceCardProps) {
       <div className="px-3 pb-3 flex gap-2">
         <Link
           href={`/places/${place.id}`}
-          className="flex-1 text-center text-xs font-medium py-2 rounded-xl bg-[#FFF0E2] text-[#E0813D] border border-[#F5C49A] hover:bg-[#FFE4CC] transition-colors"
+          className="flex-1 text-center text-xs font-medium py-2 rounded-xl bg-[#FAF0E8] text-[#C07A4E] border border-[#E8C4A8] hover:bg-[#FFE4CC] transition-colors"
         >
           查看详情
         </Link>
-        <button className="flex items-center justify-center gap-1 flex-1 text-xs font-medium py-2 rounded-xl bg-[#E0813D] text-white hover:bg-[#CC7030] transition-colors">
+        <button className="flex items-center justify-center gap-1 flex-1 text-xs font-medium py-2 rounded-xl bg-[#C07A4E] text-white hover:bg-[#A86840] transition-colors">
           <MessageCircle size={12} />
           微信咨询
         </button>

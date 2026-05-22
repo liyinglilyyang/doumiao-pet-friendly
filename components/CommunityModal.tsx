@@ -85,7 +85,7 @@ export default function CommunityModal({ open, onClose, sourcePage }: Props) {
               感谢你加入这个越来越宠物友好的社群
             </p>
             <button onClick={handleClose}
-              className="w-full py-3 bg-[#E0813D] hover:bg-[#CC7030] text-white rounded-xl font-semibold text-[14px] transition-colors">
+              className="w-full py-3 bg-[#C07A4E] hover:bg-[#A86840] text-white rounded-xl font-semibold text-[14px] transition-colors">
               好的～
             </button>
           </div>
@@ -114,7 +114,7 @@ export default function CommunityModal({ open, onClose, sourcePage }: Props) {
                   onChange={(e) => setContact(e.target.value)}
                   placeholder="填写其中一个即可"
                   autoFocus
-                  className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#EDE8E0] text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#E0813D] transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#EDE8E0] text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#C07A4E] transition-colors"
                 />
               </div>
 
@@ -126,8 +126,8 @@ export default function CommunityModal({ open, onClose, sourcePage }: Props) {
                     <button key={c} type="button" onClick={() => setCity(city === c ? '' : c)}
                       className={`flex-1 py-2 rounded-xl text-[13px] font-medium border transition-all ${
                         city === c
-                          ? 'bg-[#E0813D] text-white border-[#E0813D]'
-                          : 'bg-white text-[#6B5744] border-[#EDE8E0] hover:border-[#E0813D]'
+                          ? 'bg-[#C07A4E] text-white border-[#C07A4E]'
+                          : 'bg-white text-[#6B5744] border-[#EDE8E0] hover:border-[#C07A4E]'
                       }`}>
                       {c}
                     </button>
@@ -167,8 +167,8 @@ export default function CommunityModal({ open, onClose, sourcePage }: Props) {
                         )}
                         className={`px-4 py-2 rounded-xl text-[13px] font-medium border transition-all ${
                           checked
-                            ? 'bg-[#FFF0E2] text-[#E0813D] border-[#F5C49A]'
-                            : 'bg-white text-[#6B5744] border-[#EDE8E0] hover:border-[#E0813D]'
+                            ? 'bg-[#FAF0E8] text-[#C07A4E] border-[#E8C4A8]'
+                            : 'bg-white text-[#6B5744] border-[#EDE8E0] hover:border-[#C07A4E]'
                         }`}>
                         {label}
                       </button>
@@ -180,7 +180,7 @@ export default function CommunityModal({ open, onClose, sourcePage }: Props) {
               {error && <p className="text-[12px] text-rose-500">{error}</p>}
 
               <button type="submit" disabled={submitting || !contact.trim()}
-                className="w-full py-3 rounded-xl bg-[#E0813D] hover:bg-[#CC7030] text-white font-semibold text-[14px] transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
+                className="w-full py-3 rounded-xl bg-[#C07A4E] hover:bg-[#A86840] text-white font-semibold text-[14px] transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
                 {submitting && <Loader2 size={15} className="animate-spin" />}
                 {submitting ? '提交中…' : '加入社群'}
               </button>

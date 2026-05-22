@@ -106,7 +106,7 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
       <div className="flex min-h-screen bg-[#FAF7F2]">
         <AdminNav />
         <main className="flex-1 flex items-center justify-center">
-          <Loader2 size={24} className="animate-spin text-[#E0813D]" />
+          <Loader2 size={24} className="animate-spin text-[#C07A4E]" />
         </main>
       </div>
     )
@@ -119,7 +119,7 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <p className="text-[#6B5744] mb-4">{error || '未找到投稿'}</p>
-            <Link href="/admin/submissions" className="text-[#E0813D] text-[14px]">← 返回列表</Link>
+            <Link href="/admin/submissions" className="text-[#C07A4E] text-[14px]">← 返回列表</Link>
           </div>
         </main>
       </div>
@@ -202,7 +202,7 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
                 {sub.xiaohongshu_url && (
                   <div className="flex items-center gap-2 py-2">
                     <ExternalLink size={13} className="text-[#A09080]" />
-                    <a href={sub.xiaohongshu_url} target="_blank" rel="noopener noreferrer" className="text-[13px] text-[#E0813D] hover:underline truncate">
+                    <a href={sub.xiaohongshu_url} target="_blank" rel="noopener noreferrer" className="text-[13px] text-[#C07A4E] hover:underline truncate">
                       小红书主页
                     </a>
                   </div>
@@ -236,12 +236,12 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
                 <div>
                   <label className="block text-[12px] text-[#7C5A42] mb-1">店名</label>
                   <input value={editName} onChange={(e) => setEditName(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#E0813D]" />
+                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#C07A4E]" />
                 </div>
                 <div>
                   <label className="block text-[12px] text-[#7C5A42] mb-1">城市</label>
                   <select value={editCity} onChange={(e) => setEditCity(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] bg-white focus:outline-none focus:border-[#E0813D]">
+                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] bg-white focus:outline-none focus:border-[#C07A4E]">
                     <option value="guangzhou">广州</option>
                     <option value="shenzhen">深圳</option>
                     <option value="hongkong">香港</option>
@@ -250,12 +250,12 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
                 <div>
                   <label className="block text-[12px] text-[#7C5A42] mb-1">区域</label>
                   <input value={editDistrict} onChange={(e) => setEditDistrict(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#E0813D]" />
+                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#C07A4E]" />
                 </div>
                 <div>
                   <label className="block text-[12px] text-[#7C5A42] mb-1">地址</label>
                   <input value={editAddress} onChange={(e) => setEditAddress(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#E0813D]" />
+                    className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#C07A4E]" />
                 </div>
               </div>
 
@@ -266,8 +266,8 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
                     <button key={c.value} type="button" onClick={() => setEditCategory(c.value)}
                       className={`px-3 py-1.5 rounded-lg text-[12px] font-medium border transition-all ${
                         editCategory === c.value
-                          ? 'bg-[#E0813D] text-white border-[#E0813D]'
-                          : 'bg-white text-[#6B5744] border-[#DDD5C8] hover:border-[#E0813D]'
+                          ? 'bg-[#C07A4E] text-white border-[#C07A4E]'
+                          : 'bg-white text-[#6B5744] border-[#DDD5C8] hover:border-[#C07A4E]'
                       }`}>
                       {c.label}
                     </button>
@@ -278,7 +278,7 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
               <div>
                 <label className="block text-[12px] text-[#7C5A42] mb-1">备注（可选）</label>
                 <textarea rows={2} value={adminNotes} onChange={(e) => setAdminNotes(e.target.value)} placeholder="内部备注，不展示给用户"
-                  className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] resize-none" />
+                  className="w-full px-3 py-2 rounded-xl border border-[#DDD5C8] text-[13px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] resize-none" />
               </div>
 
               {error && (
@@ -310,7 +310,7 @@ export default function AdminSubmissionDetailPage({ params }: { params: Promise<
 
           {!isPending && sub.place_id && (
             <div className="mt-3">
-              <Link href={`/admin/places/${sub.place_id}/edit`} className="text-[13px] text-[#E0813D] hover:underline">
+              <Link href={`/admin/places/${sub.place_id}/edit`} className="text-[13px] text-[#C07A4E] hover:underline">
                 → 查看已收录的地点
               </Link>
             </div>

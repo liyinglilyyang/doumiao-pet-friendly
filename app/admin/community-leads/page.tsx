@@ -78,7 +78,7 @@ export default function CommunityLeadsPage() {
           <div className="flex items-end justify-between mb-1">
             <h1 className="text-[22px] font-bold text-[#1E1209]">社群线索</h1>
             {pendingCount > 0 && (
-              <span className="text-[12px] font-semibold text-[#E0813D] bg-[#FFF0E2] px-3 py-1 rounded-full border border-[#F5C49A]">
+              <span className="text-[12px] font-semibold text-[#C07A4E] bg-[#FAF0E8] px-3 py-1 rounded-full border border-[#E8C4A8]">
                 {pendingCount} 条未联系
               </span>
             )}
@@ -102,7 +102,7 @@ export default function CommunityLeadsPage() {
 
             {/* City filter */}
             <select value={city} onChange={(e) => setCity(e.target.value)}
-              className="px-3 py-2 bg-white border border-[#EDE8E0] rounded-xl text-[13px] text-[#5C3D20] focus:outline-none focus:border-[#E0813D]">
+              className="px-3 py-2 bg-white border border-[#EDE8E0] rounded-xl text-[13px] text-[#5C3D20] focus:outline-none focus:border-[#C07A4E]">
               {CITY_FILTER.map(({ value, label }) => (
                 <option key={value} value={value}>{label}</option>
               ))}
@@ -110,7 +110,7 @@ export default function CommunityLeadsPage() {
 
             {/* Intent filter */}
             <select value={intent} onChange={(e) => setIntent(e.target.value)}
-              className="px-3 py-2 bg-white border border-[#EDE8E0] rounded-xl text-[13px] text-[#5C3D20] focus:outline-none focus:border-[#E0813D]">
+              className="px-3 py-2 bg-white border border-[#EDE8E0] rounded-xl text-[13px] text-[#5C3D20] focus:outline-none focus:border-[#C07A4E]">
               {INTENT_FILTER.map(({ value, label }) => (
                 <option key={value} value={value}>{label}</option>
               ))}
@@ -120,7 +120,7 @@ export default function CommunityLeadsPage() {
           {/* List */}
           {loading ? (
             <div className="py-16 flex items-center justify-center">
-              <Loader2 size={22} className="animate-spin text-[#E0813D]" />
+              <Loader2 size={22} className="animate-spin text-[#C07A4E]" />
             </div>
           ) : leads.length === 0 ? (
             <div className="py-16 text-center">
@@ -147,7 +147,7 @@ export default function CommunityLeadsPage() {
                       {lead.intent && lead.intent.length > 0 && (
                         <div className="flex gap-1">
                           {lead.intent.map((i) => (
-                            <span key={i} className="text-[11px] bg-[#FFF0E2] text-[#E0813D] px-2 py-0.5 rounded-full">
+                            <span key={i} className="text-[11px] bg-[#FAF0E8] text-[#C07A4E] px-2 py-0.5 rounded-full">
                               {INTENT_LABELS[i] ?? i}
                             </span>
                           ))}

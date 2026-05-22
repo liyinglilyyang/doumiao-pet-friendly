@@ -97,7 +97,7 @@ function PlacesContent() {
             <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
             <input type="text" value={query} onChange={(e) => setQuery(e.target.value)}
               placeholder="搜索地名、区域..."
-              className="w-full pl-9 pr-8 py-2 md:py-2.5 bg-[#FAF7F2] rounded-xl md:rounded-2xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] focus:bg-white transition-all"
+              className="w-full pl-9 pr-8 py-2 md:py-2.5 bg-[#FAF7F2] rounded-xl md:rounded-2xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] focus:bg-white transition-all"
             />
             {query && (
               <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C4A07E] hover:text-[#7C5A42]">
@@ -154,7 +154,7 @@ function PlacesContent() {
             {CATEGORIES.map(({ value, label, emoji }) => (
               <button key={value} onClick={() => setCategory(value)}
                 className={`flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-medium whitespace-nowrap border transition-all ${
-                  category === value ? 'bg-[#E0813D] text-white border-[#E0813D]' : 'bg-white text-[#7C5A42] border-[#E8DCCB]'
+                  category === value ? 'bg-[#C07A4E] text-white border-[#C07A4E]' : 'bg-white text-[#7C5A42] border-[#E8DCCB]'
                 }`}
               >
                 {emoji} {label}
@@ -169,14 +169,14 @@ function PlacesContent() {
             ].map(({ key, label, val, set }) => (
               <button key={key} onClick={() => set(!val)}
                 className={`px-3 py-1 rounded-full text-[12px] font-medium whitespace-nowrap border transition-all ${
-                  val ? 'bg-[#E0813D] text-white border-[#E0813D]' : 'bg-white text-[#7C5A42] border-[#E8DCCB]'
+                  val ? 'bg-[#C07A4E] text-white border-[#C07A4E]' : 'bg-white text-[#7C5A42] border-[#E8DCCB]'
                 }`}
               >
                 {label}
               </button>
             ))}
             {activeCount > 0 && (
-              <button onClick={clearAll} className="flex items-center gap-1 px-2 py-1 text-[11px] text-[#A09080] hover:text-[#E0813D]">
+              <button onClick={clearAll} className="flex items-center gap-1 px-2 py-1 text-[11px] text-[#A09080] hover:text-[#C07A4E]">
                 <X size={11} />清除
               </button>
             )}
@@ -198,7 +198,7 @@ function PlacesContent() {
                   <button key={value} onClick={() => setCategory(value)}
                     className={`px-2.5 py-1 rounded-lg text-[12px] font-medium transition-all whitespace-nowrap ${
                       category === value
-                        ? 'bg-[#E0813D] text-white'
+                        ? 'bg-[#C07A4E] text-white'
                         : 'bg-[#F5EBD8] text-[#7C5A42] hover:bg-[#EDD8B8]'
                     }`}
                   >
@@ -220,7 +220,7 @@ function PlacesContent() {
                   <label key={key} className="flex items-center gap-2.5 cursor-pointer group">
                     <div onClick={() => set(!val)}
                       className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-all shrink-0 ${
-                        val ? 'bg-[#E0813D] border-[#E0813D]' : 'border-[#C4A07E] group-hover:border-[#E0813D]'
+                        val ? 'bg-[#C07A4E] border-[#C07A4E]' : 'border-[#C4A07E] group-hover:border-[#C07A4E]'
                       }`}
                     >
                       {val && <div className="w-2 h-2 bg-white rounded-sm" />}
@@ -251,7 +251,7 @@ function PlacesContent() {
 
             {activeCount > 0 && (
               <button onClick={clearAll}
-                className="w-full text-[12px] text-[#E0813D] border border-[#F5C49A] rounded-xl py-2 hover:bg-[#FFF0E2] transition-colors"
+                className="w-full text-[12px] text-[#C07A4E] border border-[#E8C4A8] rounded-xl py-2 hover:bg-[#FAF0E8] transition-colors"
               >
                 清除全部筛选 ({activeCount})
               </button>
@@ -267,7 +267,7 @@ function PlacesContent() {
               共 <span className="font-semibold text-[#1E1209]">{loading ? '…' : places.length}</span> 家宠物友好地点
             </p>
             {activeCount > 0 && (
-              <button onClick={clearAll} className="text-[12px] text-[#E0813D] hover:underline flex items-center gap-1">
+              <button onClick={clearAll} className="text-[12px] text-[#C07A4E] hover:underline flex items-center gap-1">
                 <X size={11} />清除筛选
               </button>
             )}
@@ -275,13 +275,13 @@ function PlacesContent() {
 
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <Loader2 size={28} className="animate-spin text-[#E0813D]" />
+              <Loader2 size={28} className="animate-spin text-[#C07A4E]" />
             </div>
           ) : places.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🐾</div>
               <p className="text-[15px] text-[#A09080]">暂无匹配地点</p>
-              <button onClick={clearAll} className="mt-3 text-[13px] text-[#E0813D] hover:underline">清除筛选</button>
+              <button onClick={clearAll} className="mt-3 text-[13px] text-[#C07A4E] hover:underline">清除筛选</button>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
@@ -298,7 +298,7 @@ export default function PlacesPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-[#FDFAF4]">
-        <Loader2 size={28} className="animate-spin text-[#E0813D]" />
+        <Loader2 size={28} className="animate-spin text-[#C07A4E]" />
       </div>
     }>
       <PlacesContent />

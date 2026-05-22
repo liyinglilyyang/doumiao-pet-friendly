@@ -9,7 +9,7 @@ export default function AdminMobileGate() {
       <p className="text-[14px] text-[#A09080] leading-relaxed max-w-xs mb-8">
         豆苗管理后台为桌面端优化，请使用宽度 1024px 以上的设备访问
       </p>
-      <Link href="/" className="text-[14px] text-[#E0813D] hover:underline">← 返回首页</Link>
+      <Link href="/" className="text-[14px] text-[#C07A4E] hover:underline">← 返回首页</Link>
     </div>
   )
 }

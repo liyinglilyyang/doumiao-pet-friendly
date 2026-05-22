@@ -34,7 +34,7 @@ export default async function EditPlacePage({
             <Link
               href={`/places/${place.id}`}
               target="_blank"
-              className="flex items-center gap-1.5 text-[13px] text-[#E0813D] hover:underline"
+              className="flex items-center gap-1.5 text-[13px] text-[#C07A4E] hover:underline"
             >
               查看前台 <ExternalLink size={12} />
             </Link>

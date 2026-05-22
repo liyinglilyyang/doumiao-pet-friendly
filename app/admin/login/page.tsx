@@ -163,7 +163,7 @@ function LoginForm() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-[#E0813D] flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 rounded-xl bg-[#C07A4E] flex items-center justify-center shadow-md">
             <span className="text-white text-xl">🌱</span>
           </div>
           <div>
@@ -186,7 +186,7 @@ function LoginForm() {
                 placeholder="admin@doumiao.com"
                 required
                 autoComplete="email"
-                className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-sm text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462]"
+                className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-sm text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478]"
               />
             </div>
 
@@ -200,7 +200,7 @@ function LoginForm() {
                   placeholder="••••••••"
                   required
                   autoComplete="current-password"
-                  className="w-full px-4 py-3 pr-10 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-sm text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462]"
+                  className="w-full px-4 py-3 pr-10 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-sm text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478]"
                 />
                 <button
                   type="button"
@@ -257,7 +257,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading || !email || !password}
-              className="w-full py-3 rounded-xl bg-[#E0813D] text-white font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:bg-[#CC7030] transition-colors"
+              className="w-full py-3 rounded-xl bg-[#C07A4E] text-white font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:bg-[#A86840] transition-colors"
             >
               {loading && <Loader2 size={16} className="animate-spin" />}
               {loading ? '登录中...' : '登录'}
@@ -266,7 +266,7 @@ function LoginForm() {
 
           <div className="mt-4 pt-4 border-t border-[#E8DCCB] text-center">
             <span className="text-xs text-[#A07855]">还没有账号？</span>{' '}
-            <Link href="/admin/signup" className="text-xs text-[#E0813D] font-medium hover:underline">
+            <Link href="/admin/signup" className="text-xs text-[#C07A4E] font-medium hover:underline">
               注册管理员账号
             </Link>
           </div>

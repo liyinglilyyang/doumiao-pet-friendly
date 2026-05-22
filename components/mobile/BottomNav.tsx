@@ -21,8 +21,8 @@ export default function BottomNav() {
           const active = href === '/' ? pathname === '/' : pathname.startsWith(href)
           return (
             <Link key={href} href={href} className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl">
-              <Icon size={20} strokeWidth={active ? 2.2 : 1.7} className={active ? 'text-[#E0813D]' : 'text-[#B89878]'} />
-              <span className={`text-[10px] font-medium ${active ? 'text-[#E0813D]' : 'text-[#B89878]'}`}>{label}</span>
+              <Icon size={20} strokeWidth={active ? 2.2 : 1.7} className={active ? 'text-[#C07A4E]' : 'text-[#B89878]'} />
+              <span className={`text-[10px] font-medium ${active ? 'text-[#C07A4E]' : 'text-[#B89878]'}`}>{label}</span>
             </Link>
           )
         })}

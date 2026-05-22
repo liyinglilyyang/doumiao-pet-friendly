@@ -208,7 +208,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                 onChange={(e) => setField('description', e.target.value)}
                 rows={3}
                 placeholder="描述商家特色、环境、宠物友好政策摘要..."
-                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] resize-none bg-white"
+                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] resize-none bg-white"
               />
             </Field>
           </Card>
@@ -240,7 +240,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                 onChange={(e) => setField('pet_policy', e.target.value)}
                 rows={2}
                 placeholder="简短的宠物入场规定摘要..."
-                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] resize-none bg-white"
+                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] resize-none bg-white"
               />
             </Field>
             <Field label="规则原文（商家公示原文）">
@@ -249,7 +249,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                 onChange={(e) => setField('rules_text', e.target.value)}
                 rows={2}
                 placeholder="复制商家官方公示的宠物规定原文..."
-                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] resize-none bg-white"
+                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] resize-none bg-white"
               />
             </Field>
           </Card>
@@ -281,7 +281,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                   value={form.latitude ?? ''}
                   onChange={(e) => setField('latitude', e.target.value === '' ? null : parseFloat(e.target.value))}
                   placeholder="23.1291"
-                  className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] focus:outline-none focus:border-[#F5A462] bg-white"
+                  className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] focus:outline-none focus:border-[#D99478] bg-white"
                 />
               </Field>
               <Field label="经度 Longitude">
@@ -290,7 +290,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                   value={form.longitude ?? ''}
                   onChange={(e) => setField('longitude', e.target.value === '' ? null : parseFloat(e.target.value))}
                   placeholder="113.2644"
-                  className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] focus:outline-none focus:border-[#F5A462] bg-white"
+                  className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] focus:outline-none focus:border-[#D99478] bg-white"
                 />
               </Field>
             </div>
@@ -324,7 +324,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                 type="button"
                 onClick={() => fileRef.current?.click()}
                 disabled={uploadingImg}
-                className="aspect-square rounded-xl border-2 border-dashed border-[#E8DCCB] flex flex-col items-center justify-center gap-1.5 text-[#C4A07E] hover:border-[#F5A462] hover:text-[#E0813D] hover:bg-[#FFF8F2] transition-all disabled:opacity-40"
+                className="aspect-square rounded-xl border-2 border-dashed border-[#E8DCCB] flex flex-col items-center justify-center gap-1.5 text-[#C4A07E] hover:border-[#D99478] hover:text-[#C07A4E] hover:bg-[#FFF8F2] transition-all disabled:opacity-40"
               >
                 {uploadingImg ? <Loader2 size={18} className="animate-spin" /> : (
                   <><ImagePlus size={18} /><span className="text-[10px] font-medium">上传图片</span></>
@@ -363,7 +363,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                 type="datetime-local"
                 value={form.last_verified_at ? form.last_verified_at.slice(0, 16) : ''}
                 onChange={(e) => setField('last_verified_at', e.target.value ? new Date(e.target.value).toISOString() : null)}
-                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] focus:outline-none focus:border-[#F5A462] bg-white"
+                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] focus:outline-none focus:border-[#D99478] bg-white"
               />
             </Field>
             <Field label="认证备注">
@@ -372,7 +372,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                 onChange={(e) => setField('verification_notes', e.target.value)}
                 rows={2}
                 placeholder="电话确认人员、探访日期、备注信息..."
-                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] resize-none bg-white"
+                className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] resize-none bg-white"
               />
             </Field>
             <Toggle
@@ -409,7 +409,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
                         setField(key, e.target.value === '' ? null : parseFloat(e.target.value) as never)
                       }
                       placeholder="—"
-                      className="w-14 px-2 py-1 border border-[#E8DCCB] rounded-lg text-[13px] text-center focus:outline-none focus:border-[#F5A462] bg-white"
+                      className="w-14 px-2 py-1 border border-[#E8DCCB] rounded-lg text-[13px] text-center focus:outline-none focus:border-[#D99478] bg-white"
                     />
                   </div>
                 </div>
@@ -431,7 +431,7 @@ export default function PlaceForm({ mode, initialData, placeId }: Props) {
         <button
           type="submit"
           disabled={saving || !form.name?.trim()}
-          className="flex items-center gap-2 px-7 py-2.5 bg-[#E0813D] text-white rounded-xl text-[14px] font-medium disabled:opacity-40 hover:bg-[#CC7030] transition-colors shadow-sm"
+          className="flex items-center gap-2 px-7 py-2.5 bg-[#C07A4E] text-white rounded-xl text-[14px] font-medium disabled:opacity-40 hover:bg-[#A86840] transition-colors shadow-sm"
         >
           {saving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
           {saving ? '保存中...' : mode === 'create' ? '创建商家' : '保存修改'}
@@ -471,7 +471,7 @@ function Input({ value, onChange, placeholder, required }: {
       type="text" value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder} required={required}
-      className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] bg-white"
+      className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] bg-white"
     />
   )
 }
@@ -482,7 +482,7 @@ function Select({ value, onChange, options }: {
   return (
     <select
       value={value} onChange={(e) => onChange(e.target.value)}
-      className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] bg-white focus:outline-none focus:border-[#F5A462]"
+      className="w-full px-3.5 py-3 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] bg-white focus:outline-none focus:border-[#D99478]"
     >
       {options.map(({ value: v, label: l }) => <option key={v} value={v}>{l}</option>)}
     </select>
@@ -496,7 +496,7 @@ function Toggle({ label, checked, onChange }: {
     <label className="flex items-center gap-2.5 cursor-pointer select-none bg-[#FDFAF4] rounded-xl px-3 py-2.5 hover:bg-[#F5EBD8] transition-colors border border-[#F0EAE0]">
       <div
         onClick={() => onChange(!checked)}
-        className={`w-9 h-5 rounded-full transition-colors relative shrink-0 ${checked ? 'bg-[#E0813D]' : 'bg-[#DDD5C8]'}`}
+        className={`w-9 h-5 rounded-full transition-colors relative shrink-0 ${checked ? 'bg-[#C07A4E]' : 'bg-[#DDD5C8]'}`}
       >
         <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${checked ? 'translate-x-4' : 'translate-x-0.5'}`} />
       </div>

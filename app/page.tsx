@@ -279,7 +279,7 @@ export default function HomePage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.url} alt={p.label} className="w-full h-full object-cover"
                   style={{ filter: 'saturate(0.78) brightness(0.93)' }} />
-                <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/20 to-[#E0813D]/12" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/20 to-[#C07A4E]/12" />
               </div>
             ))}
           </div>
@@ -287,7 +287,7 @@ export default function HomePage() {
 
         <div className="px-4">
         <div className="flex items-center gap-2 mb-5">
-          <div className="w-9 h-9 rounded-xl bg-[#E0813D] flex items-center justify-center shadow-md">
+          <div className="w-9 h-9 rounded-xl bg-[#C07A4E] flex items-center justify-center shadow-md">
             <span className="text-white text-base">🌱</span>
           </div>
           <div>
@@ -305,7 +305,7 @@ export default function HomePage() {
         <div className="flex gap-2">
           <button onClick={() => setSheetOpen(true)}
             className="flex items-center gap-1.5 bg-white border border-[#E8DCCB] rounded-xl px-3 py-2.5 text-[13px] font-medium text-[#1E1209] shrink-0 shadow-sm">
-            <MapPin size={12} className="text-[#E0813D]" />
+            <MapPin size={12} className="text-[#C07A4E]" />
             {CITY_LABELS[activeCity]}
             <ChevronDown size={12} className="text-[#A09080]" />
           </button>
@@ -317,7 +317,7 @@ export default function HomePage() {
               className="w-full pl-9 pr-12 py-2.5 bg-white rounded-xl border border-[#E8DCCB] text-[13px] text-[#1E1209] placeholder-[#C4A07E] shadow-sm focus:outline-none" />
             {searchQuery && (
               <button onClick={handleSearch}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#E0813D] text-white text-[11px] px-2.5 py-1 rounded-lg font-medium">
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#C07A4E] text-white text-[11px] px-2.5 py-1 rounded-lg font-medium">
                 搜索
               </button>
             )}
@@ -328,7 +328,7 @@ export default function HomePage() {
         <p className="mt-3 text-[12px] text-[#A09080]">
           想第一时间收到新增宠物友好地点？
           <button onClick={() => setModalOpen(true)}
-            className="ml-1 text-[#E0813D] font-medium hover:underline">
+            className="ml-1 text-[#C07A4E] font-medium hover:underline">
             加入豆苗社群 →
           </button>
         </p>
@@ -361,7 +361,7 @@ export default function HomePage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.url} alt={p.label} className="w-full h-full object-cover"
                   style={{ filter: 'saturate(0.74) brightness(0.93)' }} />
-                <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/15 to-[#E0813D]/10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/15 to-[#C07A4E]/10" />
                 {p.snippet && (
                   <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 shadow-[0_2px_10px_rgba(30,18,9,0.10)]">
                     <p className="text-[11px] font-semibold text-[#1E1209] leading-tight">{p.snippet.text}</p>
@@ -376,9 +376,9 @@ export default function HomePage() {
         {/* Centered headline + search */}
         <div className="max-w-[660px] mx-auto px-8 pt-10 pb-20 text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-[#FFF0E2] border border-[#F5C49A]/80 rounded-full px-4 py-1.5 mb-8">
+          <div className="inline-flex items-center gap-2 bg-[#FAF0E8] border border-[#E8C4A8]/80 rounded-full px-4 py-1.5 mb-8">
             <span className="text-[13px]">🌱</span>
-            <span className="text-[12px] font-semibold text-[#E0813D] tracking-wide">广深港宠物友好地图</span>
+            <span className="text-[12px] font-semibold text-[#C07A4E] tracking-wide">广深港宠物友好地图</span>
           </div>
 
           {/* H1 */}
@@ -396,7 +396,7 @@ export default function HomePage() {
               <button
                 onClick={() => setDropdownOpen((o) => !o)}
                 className="flex items-center gap-2 pl-5 pr-4 border-r border-[#EDE8E0] shrink-0 hover:bg-[#FAF7F2] transition-colors">
-                <MapPin size={14} className="text-[#E0813D]" />
+                <MapPin size={14} className="text-[#C07A4E]" />
                 <span className="text-[14px] font-semibold text-[#1E1209]">{CITY_LABELS[activeCity]}</span>
                 <ChevronDown size={13} className={`text-[#A09080] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -416,7 +416,7 @@ export default function HomePage() {
               {/* Search button */}
               <button
                 onClick={handleSearch}
-                className="bg-[#E0813D] hover:bg-[#CC7030] text-white px-7 text-[14px] font-semibold transition-colors shrink-0 flex items-center gap-2">
+                className="bg-[#C07A4E] hover:bg-[#A86840] text-white px-7 text-[14px] font-semibold transition-colors shrink-0 flex items-center gap-2">
                 <Search size={14} />
                 搜索
               </button>
@@ -431,12 +431,12 @@ export default function HomePage() {
                     className={`w-full flex items-center gap-3 px-3.5 py-2.5 text-left transition-colors ${
                       activeCity === city ? 'text-[#1E1209]' : 'text-[#6B5744] hover:bg-[#FAF5EE]'
                     }`}>
-                    <div className={`w-2 h-2 rounded-full shrink-0 ${activeCity === city ? 'bg-[#E0813D]' : 'bg-[#E8DCCB]'}`} />
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${activeCity === city ? 'bg-[#C07A4E]' : 'bg-[#E8DCCB]'}`} />
                     <div>
                       <div className={`text-[14px] ${activeCity === city ? 'font-semibold' : 'font-medium'}`}>{CITY_LABELS[city]}</div>
                       <div className="text-[11px] text-[#B09880]">{CITY_DESCRIPTIONS[city]}</div>
                     </div>
-                    {activeCity === city && <CheckCircle2 size={14} className="text-[#E0813D] ml-auto shrink-0" />}
+                    {activeCity === city && <CheckCircle2 size={14} className="text-[#C07A4E] ml-auto shrink-0" />}
                   </button>
                 ))}
                 <div className="mx-3 my-1 border-t border-[#F0EAE0]" />
@@ -477,7 +477,7 @@ export default function HomePage() {
           <p className="mt-6 text-[12px] text-[#B09880]">
             想第一时间收到新增宠物友好地点？
             <button onClick={() => setModalOpen(true)}
-              className="ml-1.5 text-[#E0813D] font-medium hover:underline">
+              className="ml-1.5 text-[#C07A4E] font-medium hover:underline">
               加入豆苗社群 →
             </button>
           </p>
@@ -512,7 +512,7 @@ export default function HomePage() {
                 className="w-[210px] md:w-[236px] bg-white rounded-2xl border border-[#EDE8E0] p-4 flex flex-col gap-3 shrink-0 hover:border-[#D4C5B0] hover:shadow-[0_4px_20px_rgba(30,18,9,0.07)] transition-all">
                 {/* Tag + city */}
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#E0813D] bg-[#FFF0E2] px-2.5 py-1 rounded-full">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#C07A4E] bg-[#FAF0E8] px-2.5 py-1 rounded-full">
                     <span>{obs.emoji}</span>
                     <span>{obs.tag}</span>
                   </span>
@@ -530,12 +530,12 @@ export default function HomePage() {
             ))}
 
             {/* CTA card */}
-            <div className="w-[180px] md:w-[200px] bg-gradient-to-br from-[#FFF0E2] to-[#FFF8EE] rounded-2xl border border-[#F5C49A] p-4 shrink-0 flex flex-col justify-center">
+            <div className="w-[180px] md:w-[200px] bg-gradient-to-br from-[#FAF0E8] to-[#FFF8EE] rounded-2xl border border-[#E8C4A8] p-4 shrink-0 flex flex-col justify-center">
               <div className="text-2xl mb-2.5">🐾</div>
               <p className="text-[13px] font-semibold text-[#1E1209] mb-1.5">你也发现了？</p>
               <p className="text-[12px] text-[#A07855] leading-relaxed mb-3.5">投稿你遇到的宠物友好地点</p>
               <Link href="/submit-place"
-                className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#E0813D] hover:underline">
+                className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#C07A4E] hover:underline">
                 去投稿 <ArrowRight size={11} />
               </Link>
             </div>
@@ -545,7 +545,7 @@ export default function HomePage() {
 
       {/* ── Community CTA strip (below observations) ── */}
       <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 mb-8 md:mb-10">
-        <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A]/60 px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="bg-[#FFF8EE] rounded-2xl border border-[#E8C4A8]/60 px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
             <p className="text-[14px] font-semibold text-[#1E1209]">你也发现了真正欢迎宠物的地方？</p>
             <p className="text-[12px] text-[#A07855] mt-0.5">第一手观察，帮铲屎官做更好的决策</p>
@@ -567,7 +567,7 @@ export default function HomePage() {
       <div id="explore" className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 pb-8 md:pb-12">
         <div className="flex items-center justify-between mb-3 md:mb-6">
           <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">按类型探索</h2>
-          <Link href="/places" className="flex items-center gap-1 text-[12px] md:text-[13px] text-[#E0813D] font-medium">
+          <Link href="/places" className="flex items-center gap-1 text-[12px] md:text-[13px] text-[#C07A4E] font-medium">
             查看全部 <ChevronRight size={13} />
           </Link>
         </div>
@@ -575,7 +575,7 @@ export default function HomePage() {
           <div className="flex gap-2.5 pb-1 min-w-max">
             {CATEGORIES.map(({ value, label, emoji }) => (
               <Link key={value} href={`/places?category=${value}&city=${activeCity}`}
-                className="flex flex-col items-center gap-1.5 bg-white rounded-2xl border border-[#EDE8E0] px-4 py-3 hover:border-[#F5A462] transition-colors min-w-[68px]">
+                className="flex flex-col items-center gap-1.5 bg-white rounded-2xl border border-[#EDE8E0] px-4 py-3 hover:border-[#D99478] transition-colors min-w-[68px]">
                 <span className="text-[22px]">{emoji}</span>
                 <span className="text-[11px] font-medium text-[#5C3D20] whitespace-nowrap">{label}</span>
               </Link>
@@ -600,14 +600,14 @@ export default function HomePage() {
             <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">精选宠物友好地点</h2>
             <p className="text-[11px] md:text-[13px] text-[#A09080] mt-0.5">{CITY_LABELS[activeCity]} · 豆苗精选推荐</p>
           </div>
-          <Link href={`/places?city=${activeCity}`} className="flex items-center gap-1 text-[12px] md:text-[13px] text-[#E0813D] font-medium">
+          <Link href={`/places?city=${activeCity}`} className="flex items-center gap-1 text-[12px] md:text-[13px] text-[#C07A4E] font-medium">
             查看全部 <ArrowRight size={13} />
           </Link>
         </div>
 
         {loading ? (
           <div className="flex items-center justify-center py-12 md:py-16">
-            <Loader2 size={22} className="animate-spin text-[#E0813D]" />
+            <Loader2 size={22} className="animate-spin text-[#C07A4E]" />
           </div>
         ) : display.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 lg:gap-6">
@@ -700,7 +700,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-        <div className="rounded-2xl bg-gradient-to-br from-[#FFF0E2] to-[#FFF8EE] border border-[#F5C49A] p-6 md:p-8 flex flex-col justify-between">
+        <div className="rounded-2xl bg-gradient-to-br from-[#FAF0E8] to-[#FFF8EE] border border-[#E8C4A8] p-6 md:p-8 flex flex-col justify-between">
           <div>
             <div className="text-2xl md:text-3xl mb-2 md:mb-3">🤝</div>
             <h3 className="font-bold text-[#1E1209] text-[16px] md:text-[18px] mb-2">欢迎毛孩子，不只是一句话</h3>
@@ -709,7 +709,7 @@ export default function HomePage() {
             </p>
           </div>
           <Link href="/partner"
-            className="mt-5 md:mt-6 flex items-center justify-center gap-2 bg-[#E0813D] hover:bg-[#CC7030] text-white py-3 md:py-3.5 rounded-xl font-medium text-[13px] md:text-[14px] transition-colors">
+            className="mt-5 md:mt-6 flex items-center justify-center gap-2 bg-[#C07A4E] hover:bg-[#A86840] text-white py-3 md:py-3.5 rounded-xl font-medium text-[13px] md:text-[14px] transition-colors">
             加入宠物友好地图 <ArrowRight size={14} />
           </Link>
         </div>
@@ -749,16 +749,16 @@ export default function HomePage() {
               {CITY_SLUGS.map((city) => (
                 <button key={city} onClick={() => selectCity(city)}
                   className={`w-full flex items-center gap-4 px-4 py-4 rounded-2xl transition-colors text-left ${
-                    activeCity === city ? 'bg-[#FFF0E2] border border-[#F5C49A]' : 'hover:bg-[#FAF7F2]'
+                    activeCity === city ? 'bg-[#FAF0E8] border border-[#E8C4A8]' : 'hover:bg-[#FAF7F2]'
                   }`}>
-                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${activeCity === city ? 'bg-[#E0813D]' : 'bg-[#F5EBD8]'}`}>
+                  <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${activeCity === city ? 'bg-[#C07A4E]' : 'bg-[#F5EBD8]'}`}>
                     <MapPin size={16} className={activeCity === city ? 'text-white' : 'text-[#C4A07E]'} />
                   </div>
                   <div className="flex-1">
                     <div className={`text-[15px] font-semibold ${activeCity === city ? 'text-[#1E1209]' : 'text-[#3A2518]'}`}>{CITY_LABELS[city]}</div>
                     <div className="text-[12px] text-[#A09080] mt-0.5">{CITY_DESCRIPTIONS[city]}</div>
                   </div>
-                  {activeCity === city && <CheckCircle2 size={16} className="text-[#E0813D] shrink-0" />}
+                  {activeCity === city && <CheckCircle2 size={16} className="text-[#C07A4E] shrink-0" />}
                 </button>
               ))}
               <button onClick={handleGeolocate} disabled={locating}

@@ -18,7 +18,7 @@ export default function MapPage() {
         </div>
       </header>
 
-      <div className="px-4 md:px-8 pt-10 pb-6 bg-gradient-to-br from-[#FFF8EE] to-[#FFE4C0]">
+      <div className="px-4 md:px-8 pt-10 pb-6 bg-gradient-to-br from-[#FFF8EE] to-[#EDD6BF]">
         <div className="max-w-screen-xl md:mx-auto">
           <h1 className="font-bold text-[#1E1209] text-[20px] md:text-[28px] mb-1">地图发现</h1>
           <p className="text-[13px] md:text-[14px] text-[#A07855]">在地图上找到附近的宠物友好地点</p>
@@ -31,7 +31,7 @@ export default function MapPage() {
         <p className="text-[13px] md:text-[14px] text-[#A07855] text-center leading-relaxed max-w-sm">
           我们正在开发基于地图的宠物友好地点发现功能，敬请期待
         </p>
-        <div className="mt-6 bg-[#FFF0E2] border border-[#F5C49A] rounded-2xl px-5 py-3 text-[13px] text-[#E0813D] font-medium">
+        <div className="mt-6 bg-[#FAF0E8] border border-[#E8C4A8] rounded-2xl px-5 py-3 text-[13px] text-[#C07A4E] font-medium">
           Coming Soon ✨
         </div>
       </div>

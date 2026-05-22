@@ -86,7 +86,7 @@ export default function AdminSignupPage() {
           </p>
           <Link
             href="/admin/login"
-            className="block w-full py-3 rounded-xl bg-[#E0813D] text-white font-semibold text-sm text-center hover:bg-[#CC7030] transition-colors"
+            className="block w-full py-3 rounded-xl bg-[#C07A4E] text-white font-semibold text-sm text-center hover:bg-[#A86840] transition-colors"
           >
             去登录
           </Link>
@@ -100,7 +100,7 @@ export default function AdminSignupPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-[#E0813D] flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 rounded-xl bg-[#C07A4E] flex items-center justify-center shadow-md">
             <span className="text-white text-xl">🌱</span>
           </div>
           <div>
@@ -172,7 +172,7 @@ export default function AdminSignupPage() {
             <button
               type="submit"
               disabled={loading || !email || !password || !confirm}
-              className="w-full py-3 rounded-xl bg-[#E0813D] text-white font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:bg-[#CC7030] transition-colors"
+              className="w-full py-3 rounded-xl bg-[#C07A4E] text-white font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:bg-[#A86840] transition-colors"
             >
               {loading && <Loader2 size={16} className="animate-spin" />}
               {loading ? '注册中...' : '创建账号'}
@@ -181,7 +181,7 @@ export default function AdminSignupPage() {
 
           <div className="mt-4 pt-4 border-t border-[#E8DCCB] text-center">
             <span className="text-xs text-[#A07855]">已有账号？</span>{' '}
-            <Link href="/admin/login" className="text-xs text-[#E0813D] font-medium hover:underline">
+            <Link href="/admin/login" className="text-xs text-[#C07A4E] font-medium hover:underline">
               直接登录
             </Link>
           </div>

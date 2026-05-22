@@ -68,7 +68,7 @@ export default function SetupSqlPage() {
   return (
     <div className="min-h-screen bg-[#FDFAF4] px-4 py-10">
       <div className="max-w-2xl mx-auto">
-        <Link href="/admin/login" className="text-sm text-[#E0813D] hover:underline mb-6 inline-block">
+        <Link href="/admin/login" className="text-sm text-[#C07A4E] hover:underline mb-6 inline-block">
           ← 返回登录
         </Link>
 

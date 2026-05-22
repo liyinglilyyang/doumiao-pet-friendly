@@ -55,9 +55,9 @@ export default function RankingsPage() {
       </header>
 
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#FFF8EE] to-[#FFE4C0] px-4 md:px-8 pt-10 pb-6 md:py-12">
+      <div className="bg-gradient-to-br from-[#FFF8EE] to-[#EDD6BF] px-4 md:px-8 pt-10 pb-6 md:py-12">
         <div className="max-w-screen-xl md:mx-auto flex items-center gap-3">
-          <Trophy size={22} className="text-[#E0813D]" />
+          <Trophy size={22} className="text-[#C07A4E]" />
           <div>
             <h1 className="font-bold text-[#1E1209] text-[20px] md:text-[28px]">豆苗推荐榜</h1>
             <p className="text-[12px] md:text-[14px] text-[#A07855] mt-0.5">按豆苗推荐指数排名，持续更新</p>
@@ -70,7 +70,7 @@ export default function RankingsPage() {
         {CITIES.map(({ value, label }) => (
           <button key={value} onClick={() => setCity(value as CitySlug | 'all')}
             className={`px-4 py-1.5 rounded-full text-[13px] font-medium whitespace-nowrap transition-all ${
-              city === value ? 'bg-[#E0813D] text-white' : 'bg-white text-[#7C5A42] border border-[#E8DCCB]'
+              city === value ? 'bg-[#C07A4E] text-white' : 'bg-white text-[#7C5A42] border border-[#E8DCCB]'
             }`}
           >
             {label}
@@ -82,7 +82,7 @@ export default function RankingsPage() {
       <div className="px-4 md:px-8 pb-8 max-w-screen-xl md:mx-auto">
         {loading ? (
           <div className="flex items-center justify-center py-16">
-            <Loader2 size={22} className="animate-spin text-[#E0813D]" />
+            <Loader2 size={22} className="animate-spin text-[#C07A4E]" />
           </div>
         ) : places.length === 0 ? (
           <div className="text-center py-16 text-[#C4A07E]">

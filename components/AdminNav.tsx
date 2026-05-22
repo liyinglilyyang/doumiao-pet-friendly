@@ -44,7 +44,7 @@ export default function AdminNav() {
               href={href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[14px] font-medium transition-all ${
                 active
-                  ? 'bg-[#FFF0E2] text-[#E0813D]'
+                  ? 'bg-[#FAF0E8] text-[#C07A4E]'
                   : 'text-[#6B5744] hover:bg-[#FAF5EE] hover:text-[#1E1209]'
               }`}
             >

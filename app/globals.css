@@ -2,9 +2,9 @@
 
 :root {
   --cream: #FDFAF4;
-  --orange: #E0813D;
-  --orange-light: #F5A462;
-  --orange-pale: #FFF0E2;
+  --orange: #C07A4E;
+  --orange-light: #D99478;
+  --orange-pale: #FAF0E8;
   --yellow: #F0BE56;
   --green: #7DAB77;
   --brown: #7C5A42;
@@ -40,7 +40,7 @@ body {
 }
 
 .hero-gradient {
-  background: linear-gradient(160deg, #FFF8EE 0%, #FFE4C0 50%, #FDF2DC 100%);
+  background: linear-gradient(160deg, #FFF8EE 0%, #EDD6BF 50%, #FDF2DC 100%);
 }
 
 .place-card {
@@ -53,8 +53,8 @@ body {
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: #F5A462 !important;
-  box-shadow: 0 0 0 3px rgba(224, 129, 61, 0.12);
+  border-color: #D99478 !important;
+  box-shadow: 0 0 0 3px rgba(192, 122, 78, 0.12);
 }
 
 button:active { transform: scale(0.97); }

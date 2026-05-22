@@ -90,7 +90,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
   return (
     <div>
       <label className="block text-[13px] font-medium text-[#4A3728] mb-1.5">
-        {label}{required && <span className="text-[#E0813D] ml-0.5">*</span>}
+        {label}{required && <span className="text-[#C07A4E] ml-0.5">*</span>}
       </label>
       {children}
     </div>
@@ -101,7 +101,7 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: 
   return (
     <label className="flex items-center gap-2.5 cursor-pointer select-none">
       <div onClick={() => onChange(!checked)} style={{ width: 40, height: 22 }}
-        className={`rounded-full relative transition-colors ${checked ? 'bg-[#E0813D]' : 'bg-[#DDD5C8]'}`}>
+        className={`rounded-full relative transition-colors ${checked ? 'bg-[#C07A4E]' : 'bg-[#DDD5C8]'}`}>
         <div className={`absolute top-[3px] w-4 h-4 rounded-full bg-white shadow transition-transform ${checked ? 'translate-x-[20px]' : 'translate-x-[3px]'}`} />
       </div>
       <span className="text-[13px] text-[#4A3728]">{label}</span>
@@ -197,7 +197,7 @@ export default function SubmitPlacePage() {
               加入豆苗共建群，认识更多同城铲屎官
             </p>
             <button onClick={() => setModalOpen(true)}
-              className="w-full py-2.5 border border-[#F5C49A] text-[#E0813D] rounded-xl text-[14px] font-medium hover:bg-[#FFF0E2] transition-colors">
+              className="w-full py-2.5 border border-[#E8C4A8] text-[#C07A4E] rounded-xl text-[14px] font-medium hover:bg-[#FAF0E8] transition-colors">
               加入豆苗共建群
             </button>
           </div>
@@ -231,7 +231,7 @@ export default function SubmitPlacePage() {
       </header>
 
       {/* Mobile emotional banner */}
-      <div className="md:hidden bg-gradient-to-br from-[#FFF8EE] to-[#FFE4C0] px-5 pt-6 pb-5 border-b border-[#F5E0C0]">
+      <div className="md:hidden bg-gradient-to-br from-[#FFF8EE] to-[#EDD6BF] px-5 pt-6 pb-5 border-b border-[#F5E0C0]">
         <p className="text-[18px] font-bold text-[#1E1209] leading-snug mb-1.5">
           帮更多养宠人<br />找到属于它们的地方
         </p>
@@ -286,27 +286,27 @@ export default function SubmitPlacePage() {
                 <Field label="店铺名称" required>
                   <input type="text" placeholder="例：星巴克太古汇店" value={form.name}
                     onChange={(e) => set('name', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors" />
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors" />
                 </Field>
 
                 <div className="grid grid-cols-2 gap-3">
                   <Field label="城市" required>
                     <select value={form.city} onChange={(e) => set('city', e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] bg-white focus:outline-none focus:border-[#E0813D]">
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] bg-white focus:outline-none focus:border-[#C07A4E]">
                       {CITIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
                     </select>
                   </Field>
                   <Field label="区域">
                     <input type="text" placeholder="例：天河区" value={form.district}
                       onChange={(e) => set('district', e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors" />
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors" />
                   </Field>
                 </div>
 
                 <Field label="地址">
                   <input type="text" placeholder="例：天河路 383 号太古汇 B1" value={form.address}
                     onChange={(e) => set('address', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors" />
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors" />
                 </Field>
 
                 <Field label="商家类型" required>
@@ -315,8 +315,8 @@ export default function SubmitPlacePage() {
                       <button key={c.value} type="button" onClick={() => set('category', c.value)}
                         className={`px-3 py-1.5 rounded-lg text-[13px] font-medium border transition-all ${
                           form.category === c.value
-                            ? 'bg-[#E0813D] text-white border-[#E0813D]'
-                            : 'bg-white text-[#6B5744] border-[#DDD5C8] hover:border-[#E0813D]'
+                            ? 'bg-[#C07A4E] text-white border-[#C07A4E]'
+                            : 'bg-white text-[#6B5744] border-[#DDD5C8] hover:border-[#C07A4E]'
                         }`}>
                         {c.emoji} {c.label}
                       </button>
@@ -354,7 +354,7 @@ export default function SubmitPlacePage() {
                 <Field label="宠物规则说明">
                   <textarea rows={3} placeholder="例：仅允许抱抱入店，大型犬需拴绳在门口……" value={form.pet_rules_description}
                     onChange={(e) => set('pet_rules_description', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors resize-none" />
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors resize-none" />
                 </Field>
               </div>
 
@@ -377,12 +377,12 @@ export default function SubmitPlacePage() {
                       <label key={obs.key}
                         className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all select-none ${
                           checked
-                            ? 'bg-[#FFF0E2] border-[#F5C49A]'
-                            : 'bg-white border-[#EDE8E0] hover:border-[#F5C49A]'
+                            ? 'bg-[#FAF0E8] border-[#E8C4A8]'
+                            : 'bg-white border-[#EDE8E0] hover:border-[#E8C4A8]'
                         }`}>
                         <div onClick={() => toggleObs(obs.key)}
                           className={`w-5 h-5 rounded-md border-2 shrink-0 mt-0.5 flex items-center justify-center transition-all ${
-                            checked ? 'bg-[#E0813D] border-[#E0813D]' : 'border-[#D0C0B0]'
+                            checked ? 'bg-[#C07A4E] border-[#C07A4E]' : 'border-[#D0C0B0]'
                           }`}>
                           {checked && <span className="text-white text-[10px] font-bold">✓</span>}
                         </div>
@@ -417,7 +417,7 @@ export default function SubmitPlacePage() {
                   ))}
                   {images.length < 6 && (
                     <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
-                      className="w-20 h-20 rounded-xl border-2 border-dashed border-[#DDD5C8] flex flex-col items-center justify-center gap-1 text-[#B09880] hover:border-[#E0813D] hover:text-[#E0813D] transition-colors">
+                      className="w-20 h-20 rounded-xl border-2 border-dashed border-[#DDD5C8] flex flex-col items-center justify-center gap-1 text-[#B09880] hover:border-[#C07A4E] hover:text-[#C07A4E] transition-colors">
                       {uploading ? <Loader2 size={18} className="animate-spin" /> : <Upload size={18} />}
                       <span className="text-[11px]">上传</span>
                     </button>
@@ -437,23 +437,23 @@ export default function SubmitPlacePage() {
                   <Field label="商家电话">
                     <input type="tel" placeholder="020-12345678" value={form.contact_phone}
                       onChange={(e) => set('contact_phone', e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors" />
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors" />
                   </Field>
                   <Field label="商家微信">
                     <input type="text" placeholder="微信号" value={form.contact_wechat}
                       onChange={(e) => set('contact_wechat', e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors" />
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors" />
                   </Field>
                 </div>
                 <Field label="小红书主页链接">
                   <input type="url" placeholder="https://www.xiaohongshu.com/..." value={form.xiaohongshu_url}
                     onChange={(e) => set('xiaohongshu_url', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors" />
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors" />
                 </Field>
                 <Field label="您的联系方式">
                   <input type="text" placeholder="微信 / 手机号（仅用于核实，不公开）" value={form.submitter_contact}
                     onChange={(e) => set('submitter_contact', e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#E0813D] transition-colors" />
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#DDD5C8] text-[14px] text-[#1E1209] placeholder:text-[#C0B0A0] focus:outline-none focus:border-[#C07A4E] transition-colors" />
                 </Field>
               </div>
 
@@ -462,7 +462,7 @@ export default function SubmitPlacePage() {
               )}
 
               <button type="submit" disabled={submitting}
-                className="w-full py-3.5 bg-[#E0813D] text-white font-semibold rounded-xl text-[15px] hover:bg-[#C8702F] transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
+                className="w-full py-3.5 bg-[#C07A4E] text-white font-semibold rounded-xl text-[15px] hover:bg-[#C8702F] transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
                 {submitting && <Loader2 size={17} className="animate-spin" />}
                 {submitting ? '提交中…' : '提交投稿'}
               </button>

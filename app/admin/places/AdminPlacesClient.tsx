@@ -96,7 +96,7 @@ export default function AdminPlacesClient({ initialPlaces }: Props) {
               type="text" value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="搜索商家名称或区域..."
-              className="w-full pl-10 pr-9 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] bg-[#FDFAF4]"
+              className="w-full pl-10 pr-9 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] bg-[#FDFAF4]"
             />
             {query && (
               <button onClick={() => setQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C4A07E] hover:text-[#7C5A42]">
@@ -106,17 +106,17 @@ export default function AdminPlacesClient({ initialPlaces }: Props) {
           </div>
 
           <select value={city} onChange={(e) => setCity(e.target.value as CitySlug | 'all')}
-            className="px-4 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] bg-[#FDFAF4] text-[#1E1209] focus:outline-none focus:border-[#F5A462]">
+            className="px-4 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] bg-[#FDFAF4] text-[#1E1209] focus:outline-none focus:border-[#D99478]">
             {CITIES.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
           </select>
 
           <select value={category} onChange={(e) => setCategory(e.target.value as PlaceCategory | 'all')}
-            className="px-4 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] bg-[#FDFAF4] text-[#1E1209] focus:outline-none focus:border-[#F5A462]">
+            className="px-4 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] bg-[#FDFAF4] text-[#1E1209] focus:outline-none focus:border-[#D99478]">
             {CATEGORIES.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
           </select>
 
           <select value={verifFilter} onChange={(e) => setVerifFilter(e.target.value as VerificationStatus | 'all')}
-            className="px-4 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] bg-[#FDFAF4] text-[#1E1209] focus:outline-none focus:border-[#F5A462]">
+            className="px-4 py-2.5 border border-[#E8DCCB] rounded-xl text-[14px] bg-[#FDFAF4] text-[#1E1209] focus:outline-none focus:border-[#D99478]">
             {VERIF_FILTERS.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
           </select>
 
@@ -131,7 +131,7 @@ export default function AdminPlacesClient({ initialPlaces }: Props) {
           <div className="text-[15px] text-[#A09080]">暂无匹配记录</div>
           <button
             onClick={() => { setQuery(''); setCity('all'); setCategory('all'); setVerifFilter('all') }}
-            className="mt-4 text-[13px] text-[#E0813D] hover:underline"
+            className="mt-4 text-[13px] text-[#C07A4E] hover:underline"
           >清除筛选</button>
         </div>
       ) : (

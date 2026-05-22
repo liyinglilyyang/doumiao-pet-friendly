@@ -50,7 +50,7 @@ export default async function AdminDashboard() {
           </div>
           <Link
             href="/admin/places/new"
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#E0813D] text-white rounded-xl text-[14px] font-medium hover:bg-[#CC7030] transition-colors shadow-sm"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#C07A4E] text-white rounded-xl text-[14px] font-medium hover:bg-[#A86840] transition-colors shadow-sm"
           >
             <PlusCircle size={16} />
             新增商家
@@ -67,7 +67,7 @@ export default async function AdminDashboard() {
           {/* Stats row */}
           <div className="grid grid-cols-4 gap-5 mb-8">
             {[
-              { icon: MapPin, label: '收录商家', value: stats.total, color: 'text-[#E0813D]', bg: 'bg-[#FFF0E2]' },
+              { icon: MapPin, label: '收录商家', value: stats.total, color: 'text-[#C07A4E]', bg: 'bg-[#FAF0E8]' },
               { icon: CheckCircle2, label: '豆苗认证', value: stats.verified, color: 'text-emerald-600', bg: 'bg-emerald-50' },
               { icon: Star, label: '首页推荐', value: stats.featured, color: 'text-amber-500', bg: 'bg-amber-50' },
               { icon: TrendingUp, label: '覆盖城市', value: stats.cities, color: 'text-blue-500', bg: 'bg-blue-50' },
@@ -92,7 +92,7 @@ export default async function AdminDashboard() {
                     <span className="text-[14px] text-[#6B5744] w-12 shrink-0">{label}</span>
                     <div className="flex-1 bg-[#F5EBD8] rounded-full h-2 overflow-hidden">
                       <div
-                        className="h-full bg-[#E0813D] rounded-full transition-all"
+                        className="h-full bg-[#C07A4E] rounded-full transition-all"
                         style={{ width: stats.total > 0 ? `${(count / stats.total) * 100}%` : '0%' }}
                       />
                     </div>
@@ -112,7 +112,7 @@ export default async function AdminDashboard() {
                     <span className="text-[14px] text-[#6B5744] w-16 shrink-0">{label}</span>
                     <div className="flex-1 bg-[#F5EBD8] rounded-full h-2 overflow-hidden">
                       <div
-                        className="h-full bg-[#E0813D] rounded-full transition-all"
+                        className="h-full bg-[#C07A4E] rounded-full transition-all"
                         style={{ width: stats.total > 0 ? `${(count / stats.total) * 100}%` : '0%' }}
                       />
                     </div>
@@ -128,7 +128,7 @@ export default async function AdminDashboard() {
             <div className="bg-white rounded-2xl border border-[#EDE8E0] shadow-[0_1px_4px_rgba(60,30,10,0.06)]">
               <div className="flex items-center justify-between px-6 py-5 border-b border-[#F0EAE0]">
                 <h2 className="text-[15px] font-semibold text-[#1E1209]">最近收录</h2>
-                <Link href="/admin/places" className="text-[13px] text-[#E0813D] hover:underline">
+                <Link href="/admin/places" className="text-[13px] text-[#C07A4E] hover:underline">
                   查看全部 →
                 </Link>
               </div>
@@ -148,7 +148,7 @@ export default async function AdminDashboard() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-[15px] text-[#1E1209] truncate group-hover:text-[#E0813D] transition-colors">{p.name}</div>
+                      <div className="font-medium text-[15px] text-[#1E1209] truncate group-hover:text-[#C07A4E] transition-colors">{p.name}</div>
                       <div className="text-[12px] text-[#A09080]">
                         {CITY_LABELS[p.city]} · {CATEGORY_LABELS[p.category]}
                       </div>

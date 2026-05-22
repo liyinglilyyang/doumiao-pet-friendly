@@ -31,7 +31,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-[#FDFAF4]">
-      <Loader2 size={28} className="animate-spin text-[#E0813D]" />
+      <Loader2 size={28} className="animate-spin text-[#C07A4E]" />
     </div>
   )
 
@@ -39,7 +39,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
     <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#FDFAF4] pb-20 md:pb-0">
       <div className="text-5xl">🐾</div>
       <p className="text-[#7C5A42] text-[16px]">找不到该商家</p>
-      <Link href="/places" className="text-[14px] text-[#E0813D] hover:underline">← 返回列表</Link>
+      <Link href="/places" className="text-[14px] text-[#C07A4E] hover:underline">← 返回列表</Link>
     </div>
   )
 
@@ -210,12 +210,12 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
 
               {/* Mobile: community update CTA */}
               <div className="lg:hidden">
-                <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A]/60 px-4 py-3 flex items-center justify-between gap-3">
+                <div className="bg-[#FFF8EE] rounded-2xl border border-[#E8C4A8]/60 px-4 py-3 flex items-center justify-between gap-3">
                   <p className="text-[12px] text-[#7C5A42] leading-snug">
                     加入社群，获取最新宠物友好情报
                   </p>
                   <button onClick={() => setModalOpen(true)}
-                    className="shrink-0 px-3 py-1.5 rounded-xl border border-[#F5C49A] text-[12px] font-medium text-[#E0813D] bg-white hover:bg-[#FFF0E2] transition-colors">
+                    className="shrink-0 px-3 py-1.5 rounded-xl border border-[#E8C4A8] text-[12px] font-medium text-[#C07A4E] bg-white hover:bg-[#FAF0E8] transition-colors">
                     加入社群
                   </button>
                 </div>
@@ -235,7 +235,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                 </div>
                 <div className="flex flex-col gap-2">
                   {place.wechat && (
-                    <button className="flex items-center justify-center gap-2 bg-[#E0813D] text-white py-2.5 rounded-xl text-[13px] font-medium">
+                    <button className="flex items-center justify-center gap-2 bg-[#C07A4E] text-white py-2.5 rounded-xl text-[13px] font-medium">
                       <MessageCircle size={15} />微信咨询
                     </button>
                   )}
@@ -342,7 +342,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
                     {SCORES.map(({ label, value }) => (
                       <div key={label} className="bg-[#FAF7F2] rounded-2xl p-3.5 border border-[#EDE8E0] text-center">
-                        <div className="text-[22px] font-bold text-[#E0813D] leading-none mb-1">{value!.toFixed(1)}</div>
+                        <div className="text-[22px] font-bold text-[#C07A4E] leading-none mb-1">{value!.toFixed(1)}</div>
                         <div className="flex items-center justify-center gap-0.5 mb-1.5">
                           {Array.from({ length: 5 }).map((_, i) => (
                             <Star key={i} size={10} className={i < Math.round(value!) ? 'fill-[#F0BE56] text-[#F0BE56]' : 'text-[#E8DCCB] fill-[#E8DCCB]'} />
@@ -357,7 +357,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                       <div key={label} className="flex items-center gap-3">
                         <span className="text-[12px] text-[#6B5744] w-[5.5rem] shrink-0">{label}</span>
                         <div className="flex-1 bg-[#F5EBD8] rounded-full h-1.5 overflow-hidden">
-                          <div className="h-full bg-gradient-to-r from-[#E0813D] to-[#F5A462] rounded-full transition-all"
+                          <div className="h-full bg-gradient-to-r from-[#C07A4E] to-[#D99478] rounded-full transition-all"
                             style={{ width: `${(value! / 5) * 100}%` }} />
                         </div>
                         <span className="text-[12px] font-semibold text-[#1E1209] w-6 text-right">{value!.toFixed(1)}</span>
@@ -394,7 +394,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                     <p>{place.address}</p>
                     <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.address)}`}
                       target="_blank" rel="noopener noreferrer"
-                      className="text-[12px] text-[#E0813D] hover:underline flex items-center gap-1 mt-1">
+                      className="text-[12px] text-[#C07A4E] hover:underline flex items-center gap-1 mt-1">
                       <ExternalLink size={11} />在地图中查看
                     </a>
                   </div>
@@ -460,7 +460,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                   </div>
                   <div className="space-y-3">
                     {place.wechat && (
-                      <button className="w-full flex items-center justify-center gap-2 bg-[#E0813D] hover:bg-[#CC7030] text-white py-3 rounded-xl text-[14px] font-medium transition-colors shadow-sm">
+                      <button className="w-full flex items-center justify-center gap-2 bg-[#C07A4E] hover:bg-[#A86840] text-white py-3 rounded-xl text-[14px] font-medium transition-colors shadow-sm">
                         <MessageCircle size={16} />微信咨询
                       </button>
                     )}
@@ -477,7 +477,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                     )}
                     {place.xiaohongshu_url && (
                       <a href={place.xiaohongshu_url} target="_blank" rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 bg-white hover:bg-[#FAF7F2] text-[#E0813D] py-3 rounded-xl text-[14px] font-medium transition-colors border border-[#F5C49A]">
+                        className="w-full flex items-center justify-center gap-2 bg-white hover:bg-[#FAF7F2] text-[#C07A4E] py-3 rounded-xl text-[14px] font-medium transition-colors border border-[#E8C4A8]">
                         📕 小红书主页
                       </a>
                     )}
@@ -508,12 +508,12 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
               </div>
 
               {/* Desktop sidebar: community CTA */}
-              <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A]/60 p-4">
+              <div className="bg-[#FFF8EE] rounded-2xl border border-[#E8C4A8]/60 p-4">
                 <p className="text-[13px] text-[#7C5A42] leading-relaxed mb-3">
                   这家店信息可能会更新，加入社群获取最新宠物友好情报。
                 </p>
                 <button onClick={() => setModalOpen(true)}
-                  className="w-full py-2.5 rounded-xl border border-[#F5C49A] text-[13px] font-medium text-[#E0813D] bg-white hover:bg-[#FFF0E2] transition-colors">
+                  className="w-full py-2.5 rounded-xl border border-[#E8C4A8] text-[13px] font-medium text-[#C07A4E] bg-white hover:bg-[#FAF0E8] transition-colors">
                   加入社群 / 获取更新
                 </button>
               </div>

@@ -51,7 +51,7 @@ export default function PartnerPage() {
 
       {/* Hero */}
       <div className="bg-gradient-to-br from-[#1E1209] to-[#3D2010] px-4 md:px-8 pt-10 pb-8 md:py-16 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#E0813D]/10 -translate-y-16 translate-x-16" />
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#C07A4E]/10 -translate-y-16 translate-x-16" />
         <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-[#F0BE56]/10 translate-y-12 -translate-x-12" />
         <div className="max-w-screen-xl md:mx-auto relative z-10">
           <Link href="/" className="inline-flex items-center gap-1.5 text-white/60 text-[13px] mb-6 hover:text-white/80 transition-colors">
@@ -59,7 +59,7 @@ export default function PartnerPage() {
           </Link>
           <div className="md:flex md:items-center md:gap-8">
             <div className="md:flex-1">
-              <div className="w-12 h-12 rounded-2xl bg-[#E0813D] flex items-center justify-center mb-4 shadow-lg">
+              <div className="w-12 h-12 rounded-2xl bg-[#C07A4E] flex items-center justify-center mb-4 shadow-lg">
                 <Building2 size={22} className="text-white" />
               </div>
               <h1 className="font-bold text-white text-[24px] md:text-[36px] leading-snug mb-2">
@@ -104,7 +104,7 @@ export default function PartnerPage() {
             </div>
 
             {/* Process */}
-            <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A] p-4 md:p-6 mb-6">
+            <div className="bg-[#FFF8EE] rounded-2xl border border-[#E8C4A8] p-4 md:p-6 mb-6">
               <h3 className="font-bold text-[#1E1209] text-[14px] md:text-[16px] mb-3 md:mb-4">如何加入</h3>
               <div className="space-y-3">
                 {[
@@ -114,7 +114,7 @@ export default function PartnerPage() {
                   '你出现在地图上，真实的养宠人找到你',
                 ].map((step, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full bg-[#E0813D] text-white text-[11px] font-bold flex items-center justify-center shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-[#C07A4E] text-white text-[11px] font-bold flex items-center justify-center shrink-0">
                       {i + 1}
                     </div>
                     <span className="text-[13px] md:text-[14px] text-[#5C3D20]">{step}</span>
@@ -144,7 +144,7 @@ export default function PartnerPage() {
                 <p className="text-[12px] text-[#7C5A42] leading-relaxed mb-2">
                   如果您发现了一个对宠物友好的地方，可以直接投稿，由豆苗团队核实后收录。
                 </p>
-                <Link href="/submit-place" className="inline-flex items-center gap-1 text-[12px] font-medium text-[#E0813D] hover:underline">
+                <Link href="/submit-place" className="inline-flex items-center gap-1 text-[12px] font-medium text-[#C07A4E] hover:underline">
                   提交我的店铺 <ArrowRight size={12} />
                 </Link>
               </div>
@@ -162,7 +162,7 @@ export default function PartnerPage() {
                 <p className="text-[13px] md:text-[14px] text-[#A07855] leading-relaxed mb-6 max-w-xs">
                   豆苗团队会在 1–3 个工作日内和你联系。每一个欢迎毛孩子的空间，都让城市多一点自由。
                 </p>
-                <Link href="/" className="px-6 py-3 bg-[#E0813D] text-white rounded-2xl font-medium text-[13px] hover:bg-[#CC7030]">
+                <Link href="/" className="px-6 py-3 bg-[#C07A4E] text-white rounded-2xl font-medium text-[13px] hover:bg-[#A86840]">
                   返回首页
                 </Link>
               </div>
@@ -173,13 +173,13 @@ export default function PartnerPage() {
                 <Field label="商家名称">
                   <input type="text" name="name" value={form.name} onChange={handleChange} required
                     placeholder="请输入店铺/品牌名称"
-                    className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462]" />
+                    className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478]" />
                 </Field>
 
                 <div className="grid grid-cols-2 gap-3">
                   <Field label="所在城市">
                     <select name="city" value={form.city} onChange={handleChange} required
-                      className="w-full px-3 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#F5A462] appearance-none">
+                      className="w-full px-3 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#D99478] appearance-none">
                       <option value="">选择城市</option>
                       <option value="guangzhou">广州</option>
                       <option value="shenzhen">深圳</option>
@@ -189,7 +189,7 @@ export default function PartnerPage() {
                   </Field>
                   <Field label="商家类型">
                     <select name="type" value={form.type} onChange={handleChange} required
-                      className="w-full px-3 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#F5A462] appearance-none">
+                      className="w-full px-3 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] text-[#1E1209] focus:outline-none focus:border-[#D99478] appearance-none">
                       <option value="">选择类型</option>
                       <option value="hotel">🏨 酒店</option>
                       <option value="cafe">☕ 咖啡</option>
@@ -211,7 +211,7 @@ export default function PartnerPage() {
                       <button key={value} type="button"
                         onClick={() => setForm((p) => ({ ...p, allowsPets: value }))}
                         className={`flex-1 py-2.5 rounded-xl text-[11px] md:text-[12px] font-medium border transition-all ${
-                          form.allowsPets === value ? 'bg-[#E0813D] text-white border-[#E0813D]' : 'bg-white text-[#7C5A42] border-[#E8DCCB]'
+                          form.allowsPets === value ? 'bg-[#C07A4E] text-white border-[#C07A4E]' : 'bg-white text-[#7C5A42] border-[#E8DCCB]'
                         }`}
                       >
                         {label}
@@ -223,18 +223,18 @@ export default function PartnerPage() {
                 <Field label="联系方式">
                   <input type="text" name="contact" value={form.contact} onChange={handleChange} required
                     placeholder="手机号 / 微信号 / 邮箱"
-                    className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462]" />
+                    className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478]" />
                 </Field>
 
                 <Field label="补充说明（可选）">
                   <textarea name="notes" value={form.notes} onChange={handleChange} rows={3}
                     placeholder="宠物政策详情、特别说明..."
-                    className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#F5A462] resize-none" />
+                    className="w-full px-4 py-3 bg-[#FDFAF4] rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] text-[#1E1209] placeholder-[#C4A07E] focus:outline-none focus:border-[#D99478] resize-none" />
                 </Field>
 
                 <button type="submit" disabled={!isValid || loading}
                   className={`w-full py-3.5 rounded-2xl font-semibold text-[13px] md:text-[14px] transition-all ${
-                    isValid && !loading ? 'bg-[#E0813D] text-white hover:bg-[#CC7030] shadow-md' : 'bg-[#E8DCCB] text-[#C4A07E] cursor-not-allowed'
+                    isValid && !loading ? 'bg-[#C07A4E] text-white hover:bg-[#A86840] shadow-md' : 'bg-[#E8DCCB] text-[#C4A07E] cursor-not-allowed'
                   }`}
                 >
                   {loading ? (

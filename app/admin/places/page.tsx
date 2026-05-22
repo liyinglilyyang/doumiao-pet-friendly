@@ -26,7 +26,7 @@ export default async function AdminPlacesPage() {
           </div>
           <Link
             href="/admin/places/new"
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#E0813D] text-white rounded-xl text-[14px] font-medium hover:bg-[#CC7030] transition-colors shadow-sm"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#C07A4E] text-white rounded-xl text-[14px] font-medium hover:bg-[#A86840] transition-colors shadow-sm"
           >
             <PlusCircle size={16} />
             新增商家

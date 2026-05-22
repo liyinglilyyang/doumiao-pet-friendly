@@ -23,7 +23,7 @@ export default function AboutPage() {
       <div className="bg-[#1E1209] px-4 md:px-8 pt-10 pb-8 md:py-16">
         <div className="max-w-2xl md:mx-auto">
           <div className="flex items-center gap-2 mb-4 md:hidden">
-            <div className="w-10 h-10 rounded-xl bg-[#E0813D] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#C07A4E] flex items-center justify-center">
               <span className="text-white text-xl">🌱</span>
             </div>
             <div>
@@ -43,7 +43,7 @@ export default function AboutPage() {
         {/* Mission */}
         <div className="bg-white rounded-2xl p-4 md:p-6 border border-[#E8DCCB]">
           <div className="flex items-center gap-2 mb-3">
-            <Heart size={16} className="text-[#E0813D]" />
+            <Heart size={16} className="text-[#C07A4E]" />
             <h2 className="font-bold text-[#1E1209] text-[14px] md:text-[16px]">我们的使命</h2>
           </div>
           <p className="text-[13px] md:text-[14px] text-[#5C3D20] leading-relaxed">
@@ -63,7 +63,7 @@ export default function AboutPage() {
               '连接宠友好商家与宠物主用户群体',
             ].map((item) => (
               <div key={item} className="flex items-start gap-2">
-                <CheckCircle2 size={14} className="text-[#E0813D] shrink-0 mt-0.5" />
+                <CheckCircle2 size={14} className="text-[#C07A4E] shrink-0 mt-0.5" />
                 <span className="text-[13px] md:text-[14px] text-[#5C3D20]">{item}</span>
               </div>
             ))}
@@ -77,8 +77,8 @@ export default function AboutPage() {
             { num: '3', label: '覆盖城市' },
             { num: '6', label: '评分维度' },
           ].map(({ num, label }) => (
-            <div key={label} className="bg-[#FFF8EE] border border-[#F5C49A] rounded-2xl p-3 md:p-4 text-center">
-              <div className="font-bold text-[#E0813D] text-xl md:text-2xl">{num}</div>
+            <div key={label} className="bg-[#FFF8EE] border border-[#E8C4A8] rounded-2xl p-3 md:p-4 text-center">
+              <div className="font-bold text-[#C07A4E] text-xl md:text-2xl">{num}</div>
               <div className="text-[11px] md:text-[12px] text-[#A07855] mt-0.5">{label}</div>
             </div>
           ))}
@@ -86,7 +86,7 @@ export default function AboutPage() {
 
         {/* CTA */}
         <Link href="/partner"
-          className="flex items-center justify-between bg-[#E0813D] text-white rounded-2xl p-4 md:p-5 hover:bg-[#CC7030] transition-colors"
+          className="flex items-center justify-between bg-[#C07A4E] text-white rounded-2xl p-4 md:p-5 hover:bg-[#A86840] transition-colors"
         >
           <div>
             <div className="font-bold text-[15px] md:text-[16px] mb-0.5">成为认证商家</div>
