@@ -141,6 +141,13 @@ export interface PlaceSubmission {
   place_id: string | null
 }
 
+export interface ProfileRow {
+  id: string
+  email: string | null
+  role: string
+  created_at: string
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -153,6 +160,11 @@ export interface Database {
         Row: PlaceSubmission
         Insert: Omit<PlaceSubmission, 'id' | 'created_at' | 'status' | 'reviewed_at' | 'place_id'>
         Update: Partial<PlaceSubmission>
+      }
+      profiles: {
+        Row: ProfileRow
+        Insert: Omit<ProfileRow, 'created_at'>
+        Update: Partial<Omit<ProfileRow, 'id' | 'created_at'>>
       }
     }
   }
