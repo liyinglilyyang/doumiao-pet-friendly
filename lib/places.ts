@@ -180,6 +180,8 @@ export interface PlaceTag {
 
 export function buildPlaceTags(p: PlaceRow): PlaceTag[] {
   const tags: PlaceTag[] = []
+  if (p.genuinely_welcoming === true)
+    tags.push({ key: 'genuine', label: '真心欢迎', style: 'bg-emerald-50 text-emerald-700' })
   if (p.indoor_allowed)
     tags.push({ key: 'indoor', label: '可进室内', style: 'bg-blue-50 text-blue-700' })
   if (p.outdoor_seating || p.outdoor_allowed)
@@ -190,6 +192,10 @@ export function buildPlaceTags(p: PlaceRow): PlaceTag[] {
     tags.push({ key: 'water', label: '提供饮水', style: 'bg-sky-50 text-sky-700' })
   if (p.pet_menu)
     tags.push({ key: 'menu', label: '宠物菜单', style: 'bg-purple-50 text-purple-700' })
+  if (p.cat_allowed)
+    tags.push({ key: 'cat', label: '猫咪欢迎', style: 'bg-pink-50 text-pink-700' })
+  if (p.leash_required)
+    tags.push({ key: 'leash', label: '需牵引绳', style: 'bg-gray-50 text-gray-600' })
   return tags
 }
 

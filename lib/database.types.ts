@@ -54,6 +54,15 @@ export interface PlaceRow {
   carrier_required: boolean
   pet_size_allowed: PetSizeAllowed
 
+  // ── 豆苗观察 ─────────────────────────────────────────────
+  genuinely_welcoming: boolean | null
+  large_dog_vibe:      boolean | null
+  staff_engages:       boolean | null
+  dog_relaxed:         boolean | null
+  vibe_social:         boolean | null
+  weekend_crowded:     boolean | null
+  no_judgement:        boolean | null
+
   // ── Verification ─────────────────────────────────────────
   verification_status: VerificationStatus
   verification_notes: string | null
@@ -116,6 +125,15 @@ export interface PlaceSubmission {
   submitter_contact: string | null
 
   images: string[]
+
+  // ── 豆苗观察 (user-reported perceptions) ─────────────────
+  genuinely_welcoming: boolean | null
+  large_dog_vibe:      boolean | null
+  staff_engages:       boolean | null
+  dog_relaxed:         boolean | null
+  vibe_social:         boolean | null
+  weekend_crowded:     boolean | null
+  no_judgement:        boolean | null
 
   status: SubmissionStatus
   admin_notes: string | null

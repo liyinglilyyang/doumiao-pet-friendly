@@ -7,6 +7,8 @@ const ALLOWED_FIELDS = [
   'small_dog_allowed', 'medium_dog_allowed', 'large_dog_allowed',
   'water_provided', 'contact_phone', 'contact_wechat',
   'xiaohongshu_url', 'submitter_contact', 'images',
+  'genuinely_welcoming', 'large_dog_vibe', 'staff_engages',
+  'dog_relaxed', 'vibe_social', 'weekend_crowded', 'no_judgement',
 ] as const
 
 export async function POST(req: NextRequest) {

@@ -59,6 +59,13 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       verification_status: 'unverified' as const,
       source:           'user_submit' as VerificationSource,
       is_featured:      false,
+      genuinely_welcoming: sub.genuinely_welcoming ?? null,
+      large_dog_vibe:      sub.large_dog_vibe      ?? null,
+      staff_engages:       sub.staff_engages       ?? null,
+      dog_relaxed:         sub.dog_relaxed         ?? null,
+      vibe_social:         sub.vibe_social         ?? null,
+      weekend_crowded:     sub.weekend_crowded     ?? null,
+      no_judgement:        sub.no_judgement        ?? null,
     }
 
     const { data: place, error: placeErr } = await client

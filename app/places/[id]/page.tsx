@@ -279,23 +279,73 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                 )}
               </Section>
 
+              {/* 豆苗真实观察 */}
+              {(() => {
+                const OBS_DEF = [
+                  { key: 'genuinely_welcoming' as const, emoji: '💚', label: '真心欢迎宠物', hint: '不只是容忍，而是真欢迎' },
+                  { key: 'large_dog_vibe'      as const, emoji: '🐕', label: '大型犬也自在', hint: '大狗来了空间和氛围都OK' },
+                  { key: 'staff_engages'       as const, emoji: '🤝', label: '店员主动互动', hint: '会递水、打招呼或撸狗' },
+                  { key: 'dog_relaxed'         as const, emoji: '😌', label: '狗狗整体放松', hint: '没有明显焦虑或紧绷' },
+                  { key: 'vibe_social'         as const, emoji: '👥', label: '适合社交聚会', hint: '带狗来和朋友聚是好选择' },
+                  { key: 'weekend_crowded'     as const, emoji: '📅', label: '周末较拥挤',   hint: '人多，建议工作日来' },
+                  { key: 'no_judgement'        as const, emoji: '✨', label: '不会被白眼',   hint: '周围的人都很友好' },
+                ]
+                const filled = OBS_DEF.filter(o => place[o.key] !== null && place[o.key] !== undefined)
+                if (filled.length === 0) return null
+                return (
+                  <Section title="🌱 豆苗观察">
+                    <div className="bg-[#FFFBF3] rounded-2xl p-4 md:p-5 border border-[#F0E4C8]">
+                      <p className="text-[12px] text-[#A07855] mb-3 pb-3 border-b border-[#EDE0C8]">
+                        基于豆苗团队实地观察和用户真实投稿整合
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {filled.map(({ key, emoji, label, hint }) => {
+                          const v = place[key]
+                          return (
+                            <div key={key} className={`flex items-start gap-2.5 p-2.5 rounded-xl ${v ? 'opacity-100' : 'opacity-40'}`}>
+                              <span className={`text-base shrink-0 mt-0.5 ${v ? '' : 'grayscale'}`}>{emoji}</span>
+                              <div>
+                                <div className={`text-[13px] font-medium flex items-center gap-1.5 ${v ? 'text-[#1E1209]' : 'text-[#A09080] line-through'}`}>
+                                  {v && <span className="text-emerald-500 text-[11px]">✓</span>}
+                                  {!v && <span className="text-rose-400 text-[11px]">✗</span>}
+                                  {label}
+                                </div>
+                                <div className="text-[11px] text-[#B09880]">{hint}</div>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </Section>
+                )
+              })()}
+
               {/* Scores */}
               {SCORES.length > 0 && (
-                <Section title="评分详情">
-                  <div className="space-y-4">
+                <Section title="豆苗评分">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
                     {SCORES.map(({ label, value }) => (
-                      <div key={label} className="flex items-center gap-3 md:gap-4">
-                        <span className="text-[13px] md:text-[14px] text-[#6B5744] w-16 md:w-20 shrink-0">{label}</span>
-                        <div className="flex-1 bg-[#F5EBD8] rounded-full h-2 overflow-hidden">
-                          <div className="h-full bg-gradient-to-r from-[#E0813D] to-[#F5A462] rounded-full"
+                      <div key={label} className="bg-[#FAF7F2] rounded-2xl p-3.5 border border-[#EDE8E0] text-center">
+                        <div className="text-[22px] font-bold text-[#E0813D] leading-none mb-1">{value!.toFixed(1)}</div>
+                        <div className="flex items-center justify-center gap-0.5 mb-1.5">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <Star key={i} size={10} className={i < Math.round(value!) ? 'fill-[#F0BE56] text-[#F0BE56]' : 'text-[#E8DCCB] fill-[#E8DCCB]'} />
+                          ))}
+                        </div>
+                        <div className="text-[11px] text-[#A09080] font-medium">{label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-2.5">
+                    {SCORES.map(({ label, value }) => (
+                      <div key={label} className="flex items-center gap-3">
+                        <span className="text-[12px] text-[#6B5744] w-[5.5rem] shrink-0">{label}</span>
+                        <div className="flex-1 bg-[#F5EBD8] rounded-full h-1.5 overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-[#E0813D] to-[#F5A462] rounded-full transition-all"
                             style={{ width: `${(value! / 5) * 100}%` }} />
                         </div>
-                        <div className="flex items-center gap-0.5 shrink-0">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star key={i} size={11} className={i < Math.round(value!) ? 'fill-[#F0BE56] text-[#F0BE56]' : 'text-[#E8DCCB] fill-[#E8DCCB]'} />
-                          ))}
-                          <span className="text-[12px] md:text-[13px] font-semibold text-[#1E1209] ml-1">{value!.toFixed(1)}</span>
-                        </div>
+                        <span className="text-[12px] font-semibold text-[#1E1209] w-6 text-right">{value!.toFixed(1)}</span>
                       </div>
                     ))}
                   </div>
@@ -336,23 +386,47 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                 </div>
               )}
 
-              {/* Verification note */}
-              {(place.last_verified_at || place.verification_notes) && (
-                <div className="flex items-start gap-3 bg-[#FAF7F2] rounded-2xl p-4 border border-[#EDE8E0]">
-                  <Clock size={15} className="shrink-0 mt-0.5 text-[#C4A07E]" />
-                  <div className="space-y-1">
-                    {place.last_verified_at && (
-                      <p className="text-[12px] md:text-[13px] text-[#7C5A42]">
-                        最后验证：{new Date(place.last_verified_at).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
-                        {place.source && <span className="text-[#A09080] ml-2">（{SOURCE_LABELS[place.source]}）</span>}
-                      </p>
-                    )}
+              {/* Trust & verification */}
+              {(() => {
+                const TRUST_STEPS: { status: string[]; icon: string; label: string; desc: string }[] = [
+                  { status: ['phone_verified','visited','visited_verified','doumiao_verified','partner_verified'], icon: '📞', label: '已电话确认', desc: '豆苗团队致电确认宠物政策' },
+                  { status: ['visited','visited_verified','doumiao_verified','partner_verified'],                  icon: '📍', label: '已实地探访', desc: '团队成员带狗亲自到访' },
+                  { status: ['doumiao_verified','partner_verified'],                                              icon: '🌱', label: '豆苗认证',   desc: '最高信任等级，持续跟进' },
+                ]
+                const activeCount = TRUST_STEPS.filter(s => s.status.includes(place.verification_status)).length
+                if (activeCount === 0 && !place.last_verified_at && !place.verification_notes) return null
+                return (
+                  <div className="bg-[#FAF7F2] rounded-2xl p-4 md:p-5 border border-[#EDE8E0]">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-[13px] font-bold text-[#1E1209]">信任体系</h3>
+                      {place.last_verified_at && (
+                        <span className="text-[11px] text-[#A09080]">
+                          更新于 {new Date(place.last_verified_at).toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })}
+                          {place.source && ` · ${SOURCE_LABELS[place.source]}`}
+                        </span>
+                      )}
+                    </div>
+                    <div className="space-y-2.5">
+                      {TRUST_STEPS.map(({ status, icon, label, desc }) => {
+                        const active = status.includes(place.verification_status)
+                        return (
+                          <div key={label} className={`flex items-center gap-3 p-2.5 rounded-xl transition-colors ${active ? 'bg-white border border-[#E8DCCB]' : 'opacity-30'}`}>
+                            <span className={`text-base shrink-0 ${active ? '' : 'grayscale'}`}>{icon}</span>
+                            <div className="flex-1">
+                              <div className={`text-[13px] font-medium ${active ? 'text-[#1E1209]' : 'text-[#A09080]'}`}>{label}</div>
+                              <div className="text-[11px] text-[#A09080]">{desc}</div>
+                            </div>
+                            {active && <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />}
+                          </div>
+                        )
+                      })}
+                    </div>
                     {place.verification_notes && (
-                      <p className="text-[12px] text-[#A09080]">{place.verification_notes}</p>
+                      <p className="mt-3 pt-3 border-t border-[#EDE8E0] text-[12px] text-[#7C5A42] leading-relaxed">{place.verification_notes}</p>
                     )}
                   </div>
-                </div>
-              )}
+                )
+              })()}
             </div>
 
             {/* ── Right: sticky contact sidebar (desktop only) ── */}
