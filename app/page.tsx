@@ -38,6 +38,22 @@ const CATEGORIES: { value: PlaceCategory; label: string; emoji: string }[] = [
   { value: 'transport',  label: '宠物运输', emoji: '🚗' },
 ]
 
+// ── Hero photo mosaic ─────────────────────────────────────────
+
+// Column A: portrait-ish photos, warmer tones
+const COL_A = [
+  { url: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=320&q=70', label: '咖啡店里的狗狗', h: 184 },
+  { url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=320&q=70', label: '户外漫步时光',   h: 148 },
+  { url: 'https://images.unsplash.com/photo-1477884213360-7e9d7dcc1e48?auto=format&fit=crop&w=320&q=70', label: '宠物友好空间',   h: 200 },
+]
+
+// Column B: landscape-ish photos, slightly cooler offset
+const COL_B = [
+  { url: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=320&q=70', label: '一起出行',   h: 160 },
+  { url: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=320&q=70', label: '城市生活',   h: 196 },
+  { url: 'https://images.unsplash.com/photo-1534361960057-19f4434a4d37?auto=format&fit=crop&w=320&q=70', label: '狗狗的一天', h: 168 },
+]
+
 // ── Observation cards (小红书 style) ──────────────────────────
 
 const OBSERVATIONS = [
@@ -224,7 +240,24 @@ export default function HomePage() {
       </header>
 
       {/* ── Mobile hero ── */}
-      <div className="md:hidden px-4 pt-8 pb-6" style={{ background: 'linear-gradient(160deg, #FFF8EE 0%, #FDFAF4 100%)' }}>
+      <div className="md:hidden pb-6" style={{ background: 'linear-gradient(160deg, #FFF8EE 0%, #FDFAF4 100%)' }}>
+
+        {/* Mobile: horizontal auto-scrolling photo strip */}
+        <div className="overflow-hidden mb-5">
+          <div className="flex gap-2 pl-4"
+            style={{ animation: 'photoStripH 28s linear infinite', width: 'max-content', willChange: 'transform' }}>
+            {[...COL_A, ...COL_B, ...COL_A, ...COL_B].map((p, i) => (
+              <div key={i} className="relative w-[88px] h-[64px] rounded-xl overflow-hidden shrink-0 shadow-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.url} alt={p.label} className="w-full h-full object-cover"
+                  style={{ filter: 'saturate(0.78) brightness(0.93)' }} />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/20 to-[#E0813D]/12" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="px-4">
         <div className="flex items-center gap-2 mb-5">
           <div className="w-9 h-9 rounded-xl bg-[#E0813D] flex items-center justify-center shadow-md">
             <span className="text-white text-base">🌱</span>
@@ -262,6 +295,7 @@ export default function HomePage() {
             )}
           </div>
         </div>
+        </div>{/* /px-4 */}
       </div>
 
       {/* ── Desktop hero: 2-col ── */}
@@ -334,60 +368,45 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right: city × category lifestyle visual */}
-          <div className="w-[280px] lg:w-[320px] shrink-0">
-            <div className="rounded-3xl overflow-hidden shadow-[0_16px_64px_rgba(30,18,9,0.22)]"
-              style={{ background: 'linear-gradient(160deg, #2E1A08 0%, #190C03 100%)' }}>
-              <div className="relative p-5 space-y-3">
-                {/* Ambient glow */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#E0813D]/12 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#F0BE56]/8 rounded-full blur-3xl pointer-events-none" />
+          {/* Right: slow-scrolling photo mosaic */}
+          <div className="w-[272px] lg:w-[308px] shrink-0">
+            <div className="relative h-[440px] overflow-hidden rounded-2xl"
+              style={{
+                maskImage: 'linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%)',
+              }}>
+              <div className="flex gap-2.5 h-full">
 
-                {/* Header label */}
-                <div className="relative flex items-center justify-between pb-3 border-b border-white/[0.07]">
-                  <span className="text-[10px] font-semibold text-white/35 uppercase tracking-[0.12em]">城市宠物生活</span>
-                  <span className="text-[10px] text-white/25 tracking-wider">广 · 深 · 港</span>
-                </div>
-
-                {/* Cafe — main scene */}
-                <div className="relative rounded-2xl h-[86px] overflow-hidden flex flex-col justify-end p-4"
-                  style={{ background: 'linear-gradient(135deg, #B5713A 0%, #7A3F14 100%)' }}>
-                  <div className="absolute inset-0 bg-black/15" />
-                  <div className="absolute top-3 right-3.5 text-[20px]">☕</div>
-                  <div className="relative">
-                    <div className="text-white font-bold text-[13px] leading-snug">宠物友好咖啡</div>
-                    <div className="text-white/55 text-[10px] mt-0.5">把它带进来，一起坐下</div>
-                  </div>
-                </div>
-
-                {/* Park + Hotel — side by side */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="relative rounded-2xl h-[72px] overflow-hidden flex flex-col justify-end p-3"
-                    style={{ background: 'linear-gradient(135deg, #4A7A45 0%, #284A24 100%)' }}>
-                    <div className="absolute inset-0 bg-black/15" />
-                    <div className="absolute top-2.5 right-2.5 text-[16px]">🌿</div>
-                    <div className="relative">
-                      <div className="text-white font-semibold text-[11px]">城市漫步</div>
-                      <div className="text-white/50 text-[10px]">自由奔跑</div>
+                {/* Column A — scrolls at one speed */}
+                <div className="flex-1 flex flex-col gap-2.5"
+                  style={{ animation: 'photoMosaicA 32s linear infinite', willChange: 'transform' }}>
+                  {[...COL_A, ...COL_A].map((p, i) => (
+                    <div key={i}
+                      className="relative shrink-0 rounded-2xl overflow-hidden shadow-[0_4px_18px_rgba(30,18,9,0.13)]"
+                      style={{ height: p.h }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.url} alt={p.label} className="w-full h-full object-cover"
+                        style={{ filter: 'saturate(0.78) brightness(0.92)' }} />
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/18 to-[#E0813D]/14" />
                     </div>
-                  </div>
-                  <div className="relative rounded-2xl h-[72px] overflow-hidden flex flex-col justify-end p-3"
-                    style={{ background: 'linear-gradient(135deg, #526070 0%, #2C3740 100%)' }}>
-                    <div className="absolute inset-0 bg-black/15" />
-                    <div className="absolute top-2.5 right-2.5 text-[16px]">🏨</div>
-                    <div className="relative">
-                      <div className="text-white font-semibold text-[11px]">一起住宿</div>
-                      <div className="text-white/50 text-[10px]">带它出行</div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Status strip */}
-                <div className="relative flex items-center gap-2 bg-white/[0.05] border border-white/[0.07] rounded-xl px-3 py-2.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 animate-pulse shrink-0" />
-                  <span className="text-[10px] text-white/35 flex-1">人工核实 · 持续更新</span>
-                  <Link href="/places" className="text-[10px] text-white/40 hover:text-white/70 transition-colors">探索 →</Link>
+                {/* Column B — different speed + time offset for stagger */}
+                <div className="flex-1 flex flex-col gap-2.5"
+                  style={{ animation: 'photoMosaicB 42s linear infinite', animationDelay: '-16s', willChange: 'transform' }}>
+                  {[...COL_B, ...COL_B].map((p, i) => (
+                    <div key={i}
+                      className="relative shrink-0 rounded-2xl overflow-hidden shadow-[0_4px_18px_rgba(30,18,9,0.13)]"
+                      style={{ height: p.h }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={p.url} alt={p.label} className="w-full h-full object-cover"
+                        style={{ filter: 'saturate(0.78) brightness(0.92)' }} />
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EE]/18 to-[#E0813D]/14" />
+                    </div>
+                  ))}
                 </div>
+
               </div>
             </div>
           </div>

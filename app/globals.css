@@ -58,3 +58,14 @@ input:focus, textarea:focus, select:focus {
 }
 
 button:active { transform: scale(0.97); }
+
+/* Photo mosaic scroll animations */
+@keyframes photoMosaicA {
+  to { transform: translateY(-50%); }
+}
+@keyframes photoMosaicB {
+  to { transform: translateY(-50%); }
+}
+@keyframes photoStripH {
+  to { transform: translateX(-50%); }
+}
