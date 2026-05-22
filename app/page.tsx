@@ -38,25 +38,7 @@ const CATEGORIES: { value: PlaceCategory; label: string; emoji: string }[] = [
   { value: 'transport',  label: '宠物运输', emoji: '🚗' },
 ]
 
-// ── Observation data (curated field notes) ─────────────────────
-
-const HERO_OBSERVATIONS = [
-  {
-    emoji: '💚', tag: '真心欢迎',
-    text: '老板自己养了一只边牧，客人带狗来会主动出来打招呼，连名字都记住了。',
-    city: '广州',
-  },
-  {
-    emoji: '🐕', tag: '大型犬自在',
-    text: '工作日下午带大型犬来，桌间距足够，不会被特别对待，很自然。',
-    city: '深圳',
-  },
-  {
-    emoji: '🤝', tag: '店员主动递水',
-    text: '点单时直接问：需要给狗狗准备个水碗吗？不需要自己开口。',
-    city: '香港',
-  },
-]
+// ── Observation cards (小红书 style) ──────────────────────────
 
 const OBSERVATIONS = [
   {
@@ -91,7 +73,7 @@ const OBSERVATIONS = [
   },
 ]
 
-// ── Collection data (curated entry points) ────────────────────
+// ── Collection data ───────────────────────────────────────────
 
 const COLLECTIONS = [
   {
@@ -149,7 +131,6 @@ export default function HomePage() {
 
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  // Read city from URL / localStorage / geolocation on mount
   useEffect(() => {
     const param = new URLSearchParams(window.location.search).get('city') as CitySlug | null
     if (param && CITY_SLUGS.includes(param)) { setActiveCity(param); return }
@@ -168,7 +149,6 @@ export default function HomePage() {
     }
   }, [])
 
-  // Fetch places when city changes
   useEffect(() => {
     let cancelled = false
     setLoading(true)
@@ -180,7 +160,6 @@ export default function HomePage() {
     return () => { cancelled = true }
   }, [activeCity])
 
-  // Close dropdown on outside click
   useEffect(() => {
     if (!dropdownOpen) return
     function handler(e: MouseEvent) {
@@ -245,7 +224,7 @@ export default function HomePage() {
       </header>
 
       {/* ── Mobile hero ── */}
-      <div className="md:hidden hero-gradient px-4 pt-8 pb-6">
+      <div className="md:hidden px-4 pt-8 pb-6" style={{ background: 'linear-gradient(160deg, #FFF8EE 0%, #FDFAF4 100%)' }}>
         <div className="flex items-center gap-2 mb-5">
           <div className="w-9 h-9 rounded-xl bg-[#E0813D] flex items-center justify-center shadow-md">
             <span className="text-white text-base">🌱</span>
@@ -255,17 +234,16 @@ export default function HomePage() {
             <div className="text-[10px] text-[#A07855] tracking-wide font-medium">DOUMIAO PET FRIENDLY</div>
           </div>
         </div>
-        <h1 className="text-[22px] font-bold text-[#1E1209] leading-snug mb-1.5">
+        <h1 className="text-[22px] font-bold text-[#1E1209] leading-snug mb-2">
           发现真正欢迎<br />毛孩子的地方
         </h1>
-        <p className="text-[13px] text-[#A07855] mb-4 leading-relaxed">
-          让养宠人和毛孩子，在城市里拥有更多自由。
+        <p className="text-[12px] text-[#A07855] mb-5 leading-relaxed">
+          标准化、真实验证、可搜索的宠物友好地图
         </p>
 
-        {/* City pill + search, side by side */}
         <div className="flex gap-2">
           <button onClick={() => setSheetOpen(true)}
-            className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm border border-[#E8DCCB] rounded-xl px-3 py-2.5 text-[13px] font-medium text-[#1E1209] shrink-0 shadow-sm">
+            className="flex items-center gap-1.5 bg-white border border-[#E8DCCB] rounded-xl px-3 py-2.5 text-[13px] font-medium text-[#1E1209] shrink-0 shadow-sm">
             <MapPin size={12} className="text-[#E0813D]" />
             {CITY_LABELS[activeCity]}
             <ChevronDown size={12} className="text-[#A09080]" />
@@ -286,34 +264,29 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── Desktop hero: 2-col, warm background ── */}
+      {/* ── Desktop hero: 2-col ── */}
       <section className="hidden md:block relative overflow-hidden"
-        style={{ background: 'linear-gradient(140deg, #FFF8EE 0%, #FDFAF4 55%, #F5EBD8 100%)' }}>
-        {/* Decorative blobs */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#E0813D]/5 -translate-y-48 translate-x-48 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-[#F0BE56]/6 translate-y-24 -translate-x-24 pointer-events-none" />
+        style={{ background: 'linear-gradient(140deg, #FFF8EE 0%, #FDFAF4 60%, #F5EBD8 100%)' }}>
+        <div className="absolute top-0 right-0 w-[480px] h-[480px] rounded-full bg-[#E0813D]/4 -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-[#F0BE56]/5 translate-y-1/2 -translate-x-1/3 pointer-events-none" />
 
-        <div className="max-w-screen-xl mx-auto px-8 pt-16 pb-16 flex items-center gap-14 lg:gap-20 relative z-10">
+        <div className="max-w-screen-xl mx-auto px-8 pt-20 pb-20 flex items-center gap-16 lg:gap-24 relative z-10">
 
           {/* Left: headline + search */}
-          <div className="flex-1 min-w-0 max-w-xl">
-            <div className="inline-flex items-center gap-2 bg-white/80 text-[#E0813D] text-[12px] font-medium px-3 py-1.5 rounded-full mb-6 border border-[#F5C49A] shadow-sm backdrop-blur-sm">
-              <span>🐾</span> 广深港 · 城市宠物友好探索
-            </div>
-            <h1 className="text-[44px] lg:text-[52px] font-bold text-[#1E1209] leading-[1.15] mb-4">
+          <div className="flex-1 min-w-0 max-w-[520px]">
+            <h1 className="text-[46px] lg:text-[54px] font-bold text-[#1E1209] leading-[1.12] tracking-tight mb-5">
               发现真正欢迎<br />毛孩子的地方
             </h1>
-            <p className="text-[17px] text-[#7C5A42] mb-8 leading-relaxed max-w-md">
-              让养宠人和毛孩子，在城市里拥有更多自由。
+            <p className="text-[16px] text-[#9C7055] mb-10 leading-relaxed">
+              标准化、真实验证、可搜索的宠物友好地图
             </p>
 
             {/* City selector + search */}
-            <div className="flex items-center gap-3 max-w-lg">
-              {/* City selector */}
+            <div className="flex items-center gap-3 max-w-[500px]">
               <div ref={dropdownRef} className="relative shrink-0">
                 <button onClick={() => setDropdownOpen((o) => !o)}
                   className={`flex items-center gap-2 bg-white border rounded-2xl px-4 py-3 text-[14px] font-medium transition-all shadow-sm ${
-                    dropdownOpen ? 'border-[#E0813D] shadow-[0_0_0_3px_rgba(224,129,61,0.12)]' : 'border-[#EDE8E0] hover:border-[#E0813D]'
+                    dropdownOpen ? 'border-[#E0813D] shadow-[0_0_0_3px_rgba(224,129,61,0.12)]' : 'border-[#EDE8E0] hover:border-[#D4C5B0]'
                   }`}>
                   <MapPin size={14} className="text-[#E0813D]" />
                   {CITY_LABELS[activeCity]}
@@ -346,8 +319,7 @@ export default function HomePage() {
                 )}
               </div>
 
-              {/* Search input */}
-              <div className="flex-1 relative bg-white rounded-2xl border border-[#EDE8E0] shadow-sm hover:border-[#E0813D] focus-within:border-[#E0813D] focus-within:shadow-[0_0_0_3px_rgba(224,129,61,0.10)] transition-all">
+              <div className="flex-1 relative bg-white rounded-2xl border border-[#EDE8E0] shadow-sm hover:border-[#D4C5B0] focus-within:border-[#E0813D] focus-within:shadow-[0_0_0_3px_rgba(224,129,61,0.10)] transition-all">
                 <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C4A07E]" />
                 <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -362,28 +334,106 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right: observation board */}
-          <div className="w-[300px] lg:w-[340px] shrink-0">
-            <div className="bg-white/75 backdrop-blur-sm rounded-3xl border border-[#EDE8E0] p-5 shadow-[0_4px_28px_rgba(60,30,10,0.09)]">
-              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#F5EFE6]">
-                <span className="text-sm">🌱</span>
-                <span className="text-[11px] font-bold text-[#B09880] uppercase tracking-wider">豆苗真实观察</span>
-              </div>
-              <div className="space-y-3">
-                {HERO_OBSERVATIONS.map((obs) => (
-                  <div key={obs.text} className="bg-[#FFFBF3] rounded-2xl p-3.5 border border-[#F0E4C8]">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-sm">{obs.emoji}</span>
-                      <span className="text-[11px] font-semibold text-[#E0813D]">{obs.tag}</span>
-                      <span className="ml-auto text-[10px] text-[#C0B0A0]">{obs.city}</span>
-                    </div>
-                    <p className="text-[12px] text-[#5C3D20] leading-relaxed">{obs.text}</p>
+          {/* Right: city × category lifestyle visual */}
+          <div className="w-[280px] lg:w-[320px] shrink-0">
+            <div className="rounded-3xl overflow-hidden shadow-[0_16px_64px_rgba(30,18,9,0.22)]"
+              style={{ background: 'linear-gradient(160deg, #2E1A08 0%, #190C03 100%)' }}>
+              <div className="relative p-5 space-y-3">
+                {/* Ambient glow */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#E0813D]/12 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#F0BE56]/8 rounded-full blur-3xl pointer-events-none" />
+
+                {/* Header label */}
+                <div className="relative flex items-center justify-between pb-3 border-b border-white/[0.07]">
+                  <span className="text-[10px] font-semibold text-white/35 uppercase tracking-[0.12em]">城市宠物生活</span>
+                  <span className="text-[10px] text-white/25 tracking-wider">广 · 深 · 港</span>
+                </div>
+
+                {/* Cafe — main scene */}
+                <div className="relative rounded-2xl h-[86px] overflow-hidden flex flex-col justify-end p-4"
+                  style={{ background: 'linear-gradient(135deg, #B5713A 0%, #7A3F14 100%)' }}>
+                  <div className="absolute inset-0 bg-black/15" />
+                  <div className="absolute top-3 right-3.5 text-[20px]">☕</div>
+                  <div className="relative">
+                    <div className="text-white font-bold text-[13px] leading-snug">宠物友好咖啡</div>
+                    <div className="text-white/55 text-[10px] mt-0.5">把它带进来，一起坐下</div>
                   </div>
-                ))}
+                </div>
+
+                {/* Park + Hotel — side by side */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="relative rounded-2xl h-[72px] overflow-hidden flex flex-col justify-end p-3"
+                    style={{ background: 'linear-gradient(135deg, #4A7A45 0%, #284A24 100%)' }}>
+                    <div className="absolute inset-0 bg-black/15" />
+                    <div className="absolute top-2.5 right-2.5 text-[16px]">🌿</div>
+                    <div className="relative">
+                      <div className="text-white font-semibold text-[11px]">城市漫步</div>
+                      <div className="text-white/50 text-[10px]">自由奔跑</div>
+                    </div>
+                  </div>
+                  <div className="relative rounded-2xl h-[72px] overflow-hidden flex flex-col justify-end p-3"
+                    style={{ background: 'linear-gradient(135deg, #526070 0%, #2C3740 100%)' }}>
+                    <div className="absolute inset-0 bg-black/15" />
+                    <div className="absolute top-2.5 right-2.5 text-[16px]">🏨</div>
+                    <div className="relative">
+                      <div className="text-white font-semibold text-[11px]">一起住宿</div>
+                      <div className="text-white/50 text-[10px]">带它出行</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Status strip */}
+                <div className="relative flex items-center gap-2 bg-white/[0.05] border border-white/[0.07] rounded-xl px-3 py-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 animate-pulse shrink-0" />
+                  <span className="text-[10px] text-white/35 flex-1">人工核实 · 持续更新</span>
+                  <Link href="/places" className="text-[10px] text-white/40 hover:text-white/70 transition-colors">探索 →</Link>
+                </div>
               </div>
-              <Link href="/places"
-                className="flex items-center justify-center gap-1 text-[11px] text-[#A09080] hover:text-[#7C5A42] pt-3 mt-2 border-t border-[#F0EAE0] transition-colors">
-                查看全部地点 <ChevronRight size={11} />
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 真实宠物主观察 — 小红书精选 style ── */}
+      <section className="pt-10 pb-12 md:pt-14 md:pb-16">
+        <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 mb-5 md:mb-6">
+          <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">真实宠物主观察</h2>
+          <p className="text-[11px] md:text-[13px] text-[#A09080] mt-1">来自铲屎官的第一手记录</p>
+        </div>
+
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex gap-3 md:gap-4 px-4 md:px-8 pb-2" style={{ width: 'max-content' }}>
+            {OBSERVATIONS.map((obs) => (
+              <div key={obs.text}
+                className="w-[210px] md:w-[236px] bg-white rounded-2xl border border-[#EDE8E0] p-4 flex flex-col gap-3 shrink-0 hover:border-[#D4C5B0] hover:shadow-[0_4px_20px_rgba(30,18,9,0.07)] transition-all">
+                {/* Tag + city */}
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#E0813D] bg-[#FFF0E2] px-2.5 py-1 rounded-full">
+                    <span>{obs.emoji}</span>
+                    <span>{obs.tag}</span>
+                  </span>
+                  <span className="text-[11px] text-[#C0B0A0]">{obs.city}</span>
+                </div>
+                {/* Text */}
+                <p className="text-[13px] text-[#3A2518] leading-relaxed flex-1">
+                  &ldquo;{obs.text}&rdquo;
+                </p>
+                {/* Category */}
+                <div className="text-[11px] text-[#B09880] pt-2 border-t border-[#F5EFE6]">
+                  {obs.type}
+                </div>
+              </div>
+            ))}
+
+            {/* CTA card */}
+            <div className="w-[180px] md:w-[200px] bg-gradient-to-br from-[#FFF0E2] to-[#FFF8EE] rounded-2xl border border-[#F5C49A] p-4 shrink-0 flex flex-col justify-center">
+              <div className="text-2xl mb-2.5">🐾</div>
+              <p className="text-[13px] font-semibold text-[#1E1209] mb-1.5">你也发现了？</p>
+              <p className="text-[12px] text-[#A07855] leading-relaxed mb-3.5">投稿你遇到的宠物友好地点</p>
+              <Link href="/submit-place"
+                className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#E0813D] hover:underline">
+                去投稿 <ArrowRight size={11} />
               </Link>
             </div>
           </div>
@@ -412,7 +462,7 @@ export default function HomePage() {
         <div className="hidden md:grid grid-cols-4 lg:grid-cols-7 gap-3">
           {CATEGORIES.map(({ value, label, emoji }) => (
             <Link key={value} href={`/places?category=${value}&city=${activeCity}`}
-              className="flex flex-col items-center gap-2.5 bg-white rounded-2xl border border-[#EDE8E0] py-5 hover:border-[#F5A462] hover:shadow-[0_2px_12px_rgba(224,129,61,0.12)] transition-all group">
+              className="flex flex-col items-center gap-2.5 bg-white rounded-2xl border border-[#EDE8E0] py-5 hover:border-[#D4C5B0] hover:shadow-[0_2px_12px_rgba(30,18,9,0.07)] transition-all group">
               <span className="text-[24px] group-hover:scale-110 transition-transform">{emoji}</span>
               <span className="text-[12px] font-medium text-[#5C3D20]">{label}</span>
             </Link>
@@ -450,57 +500,15 @@ export default function HomePage() {
         {display.length > 0 && (
           <div className="mt-5 md:mt-8 text-center">
             <Link href={`/places?city=${activeCity}`}
-              className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] font-medium text-[#7C5A42] hover:bg-white transition-all">
+              className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-xl border border-[#E8DCCB] text-[13px] md:text-[14px] font-medium text-[#7C5A42] hover:bg-white hover:border-[#D4C5B0] transition-all">
               查看 {CITY_LABELS[activeCity]} 全部地点 <ArrowRight size={13} />
             </Link>
           </div>
         )}
       </div>
 
-      {/* ── 豆苗真实观察 ── */}
-      <div className="pb-8 md:pb-14" style={{ background: 'linear-gradient(180deg, #FDFAF4 0%, #FFF8EE 100%)' }}>
-        <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 pt-8 md:pt-10">
-          <div className="flex items-end justify-between mb-4 md:mb-6">
-            <div>
-              <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">豆苗真实观察</h2>
-              <p className="text-[11px] md:text-[13px] text-[#A09080] mt-0.5">来自豆苗团队和铲屎官的真实日常记录</p>
-            </div>
-            <Link href="/places" className="text-[12px] md:text-[13px] text-[#A09080] hover:text-[#6B5744] shrink-0">查看地点 →</Link>
-          </div>
-        </div>
-
-        <div className="overflow-x-auto scrollbar-hide">
-          <div className="flex gap-3 min-w-max pb-2 px-4 md:px-8 md:max-w-screen-xl md:mx-auto">
-            {OBSERVATIONS.map((obs) => (
-              <div key={obs.text}
-                className="w-[230px] md:w-[255px] bg-white rounded-2xl border border-[#EDE8E0] p-4 shrink-0 hover:border-[#F5C49A] hover:shadow-[0_2px_12px_rgba(224,129,61,0.10)] transition-all">
-                <div className="flex items-center gap-2 mb-2.5">
-                  <span className="text-[18px]">{obs.emoji}</span>
-                  <span className="text-[11px] font-semibold text-[#E0813D] bg-[#FFF0E2] px-2 py-0.5 rounded-full">{obs.tag}</span>
-                </div>
-                <p className="text-[13px] text-[#4A3728] leading-relaxed mb-3">{obs.text}</p>
-                <div className="flex items-center gap-1.5 text-[11px] text-[#B09880]">
-                  <MapPin size={10} />
-                  <span>{obs.city} · {obs.type}</span>
-                </div>
-              </div>
-            ))}
-            {/* Hint card to invite submissions */}
-            <div className="w-[230px] md:w-[255px] bg-gradient-to-br from-[#FFF0E2] to-[#FFF8EE] rounded-2xl border border-[#F5C49A] p-4 shrink-0 flex flex-col justify-center items-start">
-              <div className="text-2xl mb-2">🐾</div>
-              <p className="text-[13px] font-medium text-[#1E1209] mb-1">你也有观察？</p>
-              <p className="text-[12px] text-[#A07855] leading-relaxed mb-3">投稿一个你发现的宠物友好地点，帮助更多铲屎官。</p>
-              <Link href="/submit-place"
-                className="inline-flex items-center gap-1 text-[12px] font-medium text-[#E0813D] hover:underline">
-                去投稿 <ArrowRight size={12} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* ── 城市宠物生活 collections ── */}
-      <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 pb-8 md:pb-14">
+      <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 pb-10 md:pb-16">
         <div className="mb-4 md:mb-6">
           <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">城市宠物生活</h2>
           <p className="text-[11px] md:text-[13px] text-[#A09080] mt-0.5">为养宠人发现更多城市空间</p>
@@ -508,7 +516,7 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {COLLECTIONS.map((col) => (
             <Link key={col.title} href={`${col.link}&city=${activeCity}`}
-              className={`rounded-2xl border ${col.border} bg-gradient-to-br ${col.gradient} p-4 md:p-5 hover:shadow-[0_4px_20px_rgba(60,30,10,0.1)] transition-all group`}>
+              className={`rounded-2xl border ${col.border} bg-gradient-to-br ${col.gradient} p-4 md:p-5 hover:shadow-[0_4px_20px_rgba(60,30,10,0.08)] transition-all group`}>
               <span className="text-2xl md:text-3xl block mb-2 md:mb-3 group-hover:scale-110 transition-transform">{col.emoji}</span>
               <h3 className="font-bold text-[#1E1209] text-[13px] md:text-[14px] leading-snug mb-1">{col.title}</h3>
               <p className="text-[11px] md:text-[12px] text-[#7C5A42] leading-relaxed">{col.desc}</p>
@@ -518,10 +526,10 @@ export default function HomePage() {
       </div>
 
       {/* ── Trust section ── */}
-      <section className="bg-white border-y border-[#EDE8E0] py-10 md:py-14">
+      <section className="bg-white border-y border-[#EDE8E0] py-10 md:py-16">
         <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-          <div className="text-center mb-6 md:mb-10">
-            <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-[17px] md:text-[22px] font-bold text-[#1E1209]">
               我们真的去过，真的打过电话
             </h2>
             <p className="text-[12px] md:text-[14px] text-[#A09080] mt-2">每一条信息背后，都有人工核实</p>
@@ -532,8 +540,8 @@ export default function HomePage() {
               { icon: Phone,        label: '电话确认', desc: '直接致电商家，核实最新宠物政策，避免铲屎官白跑一趟',       color: 'text-orange-600', bg: 'bg-orange-50',  border: 'border-orange-100' },
               { icon: Users,        label: '用户投稿', desc: '真实铲屎官的观察和投稿，持续丰富和更新地点信息',           color: 'text-sky-600',    bg: 'bg-sky-50',     border: 'border-sky-100' },
             ].map(({ icon: Icon, label, desc, color, bg, border }) => (
-              <div key={label} className={`flex gap-4 sm:flex-col sm:gap-0 rounded-2xl border ${border} ${bg} p-4 md:p-7`}>
-                <div className={`w-9 h-9 md:w-11 md:h-11 rounded-xl border ${border} flex items-center justify-center shrink-0 sm:mb-3 md:mb-4`}>
+              <div key={label} className={`flex gap-4 sm:flex-col sm:gap-0 rounded-2xl border ${border} ${bg} p-5 md:p-7`}>
+                <div className={`w-9 h-9 md:w-11 md:h-11 rounded-xl border ${border} flex items-center justify-center shrink-0 sm:mb-4`}>
                   <Icon size={18} className={color} />
                 </div>
                 <div>
@@ -553,7 +561,7 @@ export default function HomePage() {
             <span className="text-xl md:text-2xl">🌱</span>
             <span className="font-bold text-[16px] md:text-[18px]">关于豆苗</span>
           </div>
-          <p className="text-white/75 text-[13px] md:text-[14px] leading-relaxed mb-5 md:mb-6">
+          <p className="text-white/70 text-[13px] md:text-[14px] leading-relaxed mb-5 md:mb-6">
             我们理解养宠人走进一家店时那种"不知道会不会被白眼"的感受。豆苗希望让这种感受越来越少。通过真实核实和持续更新，让城市对毛孩子更开放一点。
           </p>
           <div className="grid grid-cols-3 gap-2 md:gap-3">
@@ -564,7 +572,7 @@ export default function HomePage() {
             ].map(({ num, label }) => (
               <div key={label} className="bg-white/10 rounded-xl p-2.5 md:p-3 text-center">
                 <div className="font-bold text-[16px] md:text-[18px]">{num}</div>
-                <div className="text-[10px] md:text-[11px] text-white/60 mt-0.5">{label}</div>
+                <div className="text-[10px] md:text-[11px] text-white/50 mt-0.5">{label}</div>
               </div>
             ))}
           </div>
@@ -651,7 +659,7 @@ function HomeCard({ place }: { place: PlaceRow }) {
   const verifTag = buildVerifTag(place.verification_status)
   const tags = buildPlaceTags(place)
   return (
-    <Link href={`/places/${place.id}`} className="group bg-white rounded-2xl border border-[#EDE8E0] overflow-hidden hover:shadow-card-hover transition-all">
+    <Link href={`/places/${place.id}`} className="group bg-white rounded-2xl border border-[#EDE8E0] overflow-hidden hover:shadow-[0_4px_24px_rgba(30,18,9,0.10)] transition-all">
       <div className="aspect-[4/3] overflow-hidden relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={cover} alt={place.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
