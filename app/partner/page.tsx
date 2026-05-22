@@ -5,10 +5,10 @@ import { CheckCircle2, Building2, ArrowLeft, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 const BENEFITS = [
-  { emoji: '🌱', title: '免费入驻', desc: '无需任何费用，提交即可' },
-  { emoji: '🔍', title: '精准曝光', desc: '触达广深港宠物主群体' },
-  { emoji: '✅', title: '官方认证', desc: '获得豆苗宠物友好认证标识' },
-  { emoji: '📊', title: '数据透明', desc: '了解真实用户反馈与访问量' },
+  { emoji: '🌿', title: '真正被看见', desc: '不是广告位，是养宠人真实查找时会找到的地方' },
+  { emoji: '✅', title: '信任认证', desc: '豆苗团队实地或电话确认，给你的欢迎一个可信背书' },
+  { emoji: '🏙️', title: '成为城市符号', desc: '在这座城市的宠物友好地图上，留下你的位置' },
+  { emoji: '🐾', title: '与同类相遇', desc: '连接真正在乎毛孩子的人，一起让城市更开放' },
 ]
 
 type FormData = {
@@ -63,10 +63,10 @@ export default function PartnerPage() {
                 <Building2 size={22} className="text-white" />
               </div>
               <h1 className="font-bold text-white text-[24px] md:text-[36px] leading-snug mb-2">
-                成为豆苗<br />宠物友好商家
+                欢迎毛孩子，<br />不只是一句话
               </h1>
               <p className="text-white/70 text-[13px] md:text-[15px] leading-relaxed">
-                免费入驻，获得官方认证，触达广深港数万宠物主
+                成为真正宠物友好城市的一部分。让更多带着毛孩子出门的铲屎官，在地图上找到你。
               </p>
             </div>
             {/* Desktop benefits preview */}
@@ -91,7 +91,7 @@ export default function PartnerPage() {
           <div>
             {/* Benefits — mobile only (desktop shows in hero) */}
             <div className="md:hidden mb-6">
-              <h2 className="font-bold text-[#1E1209] text-[15px] mb-3">入驻有什么好处？</h2>
+              <h2 className="font-bold text-[#1E1209] text-[15px] mb-3">为什么加入豆苗？</h2>
               <div className="grid grid-cols-2 gap-3">
                 {BENEFITS.map(({ emoji, title, desc }) => (
                   <div key={title} className="bg-white rounded-2xl p-3.5 border border-[#E8DCCB] shadow-soft">
@@ -105,13 +105,13 @@ export default function PartnerPage() {
 
             {/* Process */}
             <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A] p-4 md:p-6 mb-6">
-              <h3 className="font-bold text-[#1E1209] text-[14px] md:text-[16px] mb-3 md:mb-4">入驻流程</h3>
+              <h3 className="font-bold text-[#1E1209] text-[14px] md:text-[16px] mb-3 md:mb-4">如何加入</h3>
               <div className="space-y-3">
                 {[
-                  '提交商家基本信息',
-                  '豆苗团队审核（1-3个工作日）',
-                  '电话确认宠物政策',
-                  '上线展示，获得认证标识',
+                  '告诉我们你的空间和宠物政策',
+                  '豆苗团队核实，通常 1–3 个工作日',
+                  '我们会打个电话聊聊，确认细节',
+                  '你出现在地图上，真实的养宠人找到你',
                 ].map((step, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-[#E0813D] text-white text-[11px] font-bold flex items-center justify-center shrink-0">
@@ -125,7 +125,7 @@ export default function PartnerPage() {
 
             {/* Desktop benefits (shown instead of mobile 2-col) */}
             <div className="hidden md:block">
-              <h2 className="font-bold text-[#1E1209] text-[16px] mb-4">入驻有什么好处？</h2>
+              <h2 className="font-bold text-[#1E1209] text-[16px] mb-4">为什么加入豆苗？</h2>
               <div className="grid grid-cols-2 gap-3">
                 {BENEFITS.map(({ emoji, title, desc }) => (
                   <div key={title} className="bg-white rounded-2xl p-4 border border-[#E8DCCB] shadow-soft">
@@ -158,9 +158,9 @@ export default function PartnerPage() {
                 <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mb-4">
                   <CheckCircle2 size={32} className="text-emerald-600" />
                 </div>
-                <h3 className="font-bold text-[#1E1209] text-lg mb-2">申请已提交！</h3>
+                <h3 className="font-bold text-[#1E1209] text-lg mb-2">已收到，谢谢你 🌱</h3>
                 <p className="text-[13px] md:text-[14px] text-[#A07855] leading-relaxed mb-6 max-w-xs">
-                  感谢您的申请，豆苗团队会在 1-3 个工作日内与您联系，完成审核与验证。
+                  豆苗团队会在 1–3 个工作日内和你联系。每一个欢迎毛孩子的空间，都让城市多一点自由。
                 </p>
                 <Link href="/" className="px-6 py-3 bg-[#E0813D] text-white rounded-2xl font-medium text-[13px] hover:bg-[#CC7030]">
                   返回首页
@@ -168,7 +168,7 @@ export default function PartnerPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 bg-white rounded-2xl border border-[#E8DCCB] p-5 md:p-6 shadow-soft">
-                <h2 className="font-bold text-[#1E1209] text-[15px] md:text-[16px]">提交申请</h2>
+                <h2 className="font-bold text-[#1E1209] text-[15px] md:text-[16px]">告诉我们你的空间</h2>
 
                 <Field label="商家名称">
                   <input type="text" name="name" value={form.name} onChange={handleChange} required
@@ -242,7 +242,7 @@ export default function PartnerPage() {
                       <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
                       提交中...
                     </span>
-                  ) : '提交申请'}
+                  ) : '申请加入'}
                 </button>
                 <p className="text-[11px] text-center text-[#C4A07E]">提交后豆苗团队将在 1-3 个工作日内与您联系</p>
               </form>
