@@ -108,7 +108,8 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
             </Link>
             <span className="hidden sm:inline text-[#E8DCCB]">/</span>
             <span className="hidden sm:inline text-[14px] text-[#A09080] truncate max-w-[200px] md:max-w-xs">{place.name}</span>
-            <div className="ml-auto flex items-center gap-2">
+            <div className="ml-auto flex items-center gap-4">
+              <Link href="/submit-place" className="hidden md:inline text-[13px] text-[#A09080] hover:text-[#1E1209] transition-colors">投稿地点</Link>
               <Link href="/" className="flex items-center gap-2 text-[14px] font-bold text-[#1E1209]">
                 <span>🌱</span>
                 <span className="hidden md:inline">豆苗宠物友好</span>

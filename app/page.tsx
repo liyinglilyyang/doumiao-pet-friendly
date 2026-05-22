@@ -62,6 +62,7 @@ export default function HomePage() {
             <Link href="/places" className="text-[13px] font-medium text-[#7C5A42] hover:text-[#1E1209] transition-colors">探索地点</Link>
             <Link href="/rankings" className="text-[13px] text-[#A09080] hover:text-[#1E1209] transition-colors">榜单</Link>
             <Link href="/about" className="text-[13px] text-[#A09080] hover:text-[#1E1209] transition-colors">关于</Link>
+            <Link href="/submit-place" className="text-[13px] text-[#A09080] hover:text-[#1E1209] transition-colors">投稿地点</Link>
             <Link href="/partner" className="text-[13px] px-3.5 py-1.5 rounded-xl bg-[#1E1209] text-white hover:bg-[#3A2518] transition-colors font-medium">
               商家入驻
             </Link>

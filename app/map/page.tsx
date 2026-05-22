@@ -12,6 +12,7 @@ export default function MapPage() {
           </Link>
           <div className="ml-auto flex items-center gap-5">
             <Link href="/places" className="text-[13px] text-[#7C5A42] font-medium">探索地点</Link>
+            <Link href="/submit-place" className="text-[13px] text-[#A09080] hover:text-[#1E1209] transition-colors">投稿地点</Link>
             <Link href="/partner" className="text-[13px] px-3.5 py-1.5 rounded-xl bg-[#1E1209] text-white font-medium">商家入驻</Link>
           </div>
         </div>

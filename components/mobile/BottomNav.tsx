@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Compass, Trophy, Handshake, Info } from 'lucide-react'
+import { Home, Compass, Trophy, Handshake, PlusCircle } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { href: '/',         icon: Home,      label: '首页' },
-  { href: '/places',   icon: Compass,   label: '发现' },
-  { href: '/rankings', icon: Trophy,    label: '榜单' },
-  { href: '/partner',  icon: Handshake, label: '商家' },
-  { href: '/about',    icon: Info,      label: '关于' },
+  { href: '/',              icon: Home,        label: '首页' },
+  { href: '/places',        icon: Compass,     label: '发现' },
+  { href: '/submit-place',  icon: PlusCircle,  label: '投稿' },
+  { href: '/rankings',      icon: Trophy,      label: '榜单' },
+  { href: '/partner',       icon: Handshake,   label: '商家' },
 ]
 
 export default function BottomNav() {

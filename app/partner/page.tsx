@@ -43,6 +43,7 @@ export default function PartnerPage() {
           </Link>
           <div className="ml-auto flex items-center gap-5">
             <Link href="/places" className="text-[13px] text-[#7C5A42] font-medium hover:text-[#1E1209]">探索地点</Link>
+            <Link href="/submit-place" className="text-[13px] text-[#A09080] hover:text-[#1E1209] transition-colors">投稿地点</Link>
             <Link href="/about" className="text-[13px] text-[#A09080] hover:text-[#1E1209]">关于</Link>
           </div>
         </div>
@@ -133,6 +134,19 @@ export default function PartnerPage() {
                     <div className="text-[12px] text-[#A07855]">{desc}</div>
                   </div>
                 ))}
+              </div>
+            </div>
+            {/* Submit place tip */}
+            <div className="mt-6 p-4 rounded-2xl bg-[#F5F0E8] border border-[#E8DCCB] flex items-start gap-3">
+              <span className="text-xl shrink-0">🐾</span>
+              <div>
+                <div className="text-[13px] font-semibold text-[#1E1209] mb-0.5">不是商家？也可以投稿！</div>
+                <p className="text-[12px] text-[#7C5A42] leading-relaxed mb-2">
+                  如果您发现了一个对宠物友好的地方，可以直接投稿，由豆苗团队核实后收录。
+                </p>
+                <Link href="/submit-place" className="inline-flex items-center gap-1 text-[12px] font-medium text-[#E0813D] hover:underline">
+                  提交我的店铺 <ArrowRight size={12} />
+                </Link>
               </div>
             </div>
           </div>

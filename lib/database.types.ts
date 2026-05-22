@@ -87,6 +87,42 @@ export interface PlaceRow {
   updated_at: string
 }
 
+export type SubmissionCategory = PlaceCategory | 'other'
+export type SubmissionStatus = 'pending' | 'approved' | 'rejected'
+export type SubmitterType = 'pet_owner' | 'business' | 'staff' | 'passerby'
+
+export interface PlaceSubmission {
+  id: string
+  created_at: string
+
+  name: string
+  city: string
+  district: string | null
+  address: string | null
+  category: SubmissionCategory
+  submitter_type: SubmitterType | null
+
+  pet_rules_description: string | null
+  indoor_allowed: boolean | null
+  outdoor_seating: boolean | null
+  small_dog_allowed: boolean | null
+  medium_dog_allowed: boolean | null
+  large_dog_allowed: boolean | null
+  water_provided: boolean | null
+
+  contact_phone: string | null
+  contact_wechat: string | null
+  xiaohongshu_url: string | null
+  submitter_contact: string | null
+
+  images: string[]
+
+  status: SubmissionStatus
+  admin_notes: string | null
+  reviewed_at: string | null
+  place_id: string | null
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -94,6 +130,11 @@ export interface Database {
         Row: PlaceRow
         Insert: Omit<PlaceRow, 'id' | 'created_at' | 'updated_at'>
         Update: Partial<Omit<PlaceRow, 'id' | 'created_at' | 'updated_at'>>
+      }
+      place_submissions: {
+        Row: PlaceSubmission
+        Insert: Omit<PlaceSubmission, 'id' | 'created_at' | 'status' | 'reviewed_at' | 'place_id'>
+        Update: Partial<PlaceSubmission>
       }
     }
   }
