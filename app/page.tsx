@@ -151,6 +151,8 @@ function findNearestCity(lat: number, lng: number): CitySlug {
 // ── Page ──────────────────────────────────────────────────────
 
 export default function HomePage() {
+  type CityStats = { total: number; verified: number; new_this_week: number }
+
   const [searchQuery, setSearchQuery]   = useState('')
   const [activeCity, setActiveCity]     = useState<CitySlug>('guangzhou')
   const [places, setPlaces]             = useState<PlaceRow[]>([])
@@ -158,6 +160,7 @@ export default function HomePage() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [sheetOpen, setSheetOpen]       = useState(false)
   const [locating, setLocating]         = useState(false)
+  const [stats, setStats]               = useState<CityStats | null>(null)
 
   const dropdownRef     = useRef<HTMLDivElement>(null)
   const observationsRef = useRef<HTMLDivElement>(null)
@@ -189,6 +192,15 @@ export default function HomePage() {
       .then((data) => { if (!cancelled) setPlaces(Array.isArray(data) ? data : []) })
       .catch(() => { if (!cancelled) setPlaces([]) })
       .finally(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [activeCity])
+
+  useEffect(() => {
+    let cancelled = false
+    fetch(`/api/stats?city=${activeCity}`)
+      .then((r) => r.json())
+      .then((d) => { if (!cancelled) setStats(d) })
+      .catch(() => { if (!cancelled) setStats(null) })
     return () => { cancelled = true }
   }, [activeCity])
 
@@ -324,8 +336,15 @@ export default function HomePage() {
       </div>
 
       {/* ── Desktop hero: centered ── */}
-      <section className="hidden md:block"
+      <section className="hidden md:block relative overflow-hidden"
         style={{ background: 'linear-gradient(180deg, #FFF8EE 0%, #FDFAF4 100%)' }}>
+
+        {/* Paw-print texture — 4% opacity, non-interactive */}
+        <div className="absolute inset-0 pointer-events-none select-none" style={{
+          backgroundImage: "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><g transform='rotate(-12 100 108)' fill='%231E1209'><ellipse cx='100' cy='130' rx='19' ry='23'/><ellipse cx='68' cy='88' rx='12' ry='14'/><ellipse cx='87' cy='75' rx='12' ry='14'/><ellipse cx='113' cy='75' rx='12' ry='14'/><ellipse cx='132' cy='88' rx='12' ry='14'/></g></svg>\")",
+          backgroundSize: '220px 220px',
+          opacity: 0.042,
+        }} />
 
         {/* Full-width horizontal photo strip */}
         <div className="relative overflow-hidden pt-10"
@@ -429,8 +448,33 @@ export default function HomePage() {
               </div>
             )}
           </div>
-          {/* Community CTA — light hint below search */}
-          <p className="mt-5 text-[13px] text-[#A09080]">
+          {/* Live stats line — dynamic from DB, desktop only */}
+          {stats && stats.total > 0 && (
+            <p className="mt-5 text-[12px] text-[#B09880] leading-relaxed tracking-wide">
+              {CITY_LABELS[activeCity]} 已收录{' '}
+              <span className="font-semibold text-[#7C5A42]">{stats.total}</span>{' '}
+              家真实宠物友好地点
+              {stats.verified > 0 && (
+                <> · <span className="font-semibold text-[#7C5A42]">{stats.verified}</span> 家已人工验证</>
+              )}
+              {stats.new_this_week > 0 && (
+                <> · 本周新增 <span className="font-semibold text-[#7C5A42]">{stats.new_this_week}</span> 家</>
+              )}
+              {' '}· 支持大型犬 / 室内 / 露台筛选
+            </p>
+          )}
+
+          {/* "今天去哪遛狗" — soft action, scrolls to explore */}
+          <div className="mt-6 flex items-center justify-center gap-3">
+            <button
+              onClick={() => document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#E8DCCB] text-[13px] font-medium text-[#7C5A42] bg-white/60 hover:bg-white hover:border-[#D4C5B0] hover:shadow-sm transition-all backdrop-blur-sm">
+              🐾 今天去哪遛狗
+            </button>
+          </div>
+
+          {/* Community CTA — very light, below all */}
+          <p className="mt-6 text-[12px] text-[#B09880]">
             想第一时间收到新增宠物友好地点？
             <button onClick={() => setModalOpen(true)}
               className="ml-1.5 text-[#E0813D] font-medium hover:underline">
@@ -520,7 +564,7 @@ export default function HomePage() {
       </div>
 
       {/* ── Categories ── */}
-      <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 pb-8 md:pb-12">
+      <div id="explore" className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 pb-8 md:pb-12">
         <div className="flex items-center justify-between mb-3 md:mb-6">
           <h2 className="text-[16px] md:text-[20px] font-bold text-[#1E1209]">按类型探索</h2>
           <Link href="/places" className="flex items-center gap-1 text-[12px] md:text-[13px] text-[#E0813D] font-medium">
