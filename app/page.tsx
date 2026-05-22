@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
+import CommunityModal from '@/components/CommunityModal'
 import {
   Search, MapPin, ChevronRight, ChevronLeft, ArrowRight,
   Loader2, CheckCircle2, Phone, Users, Star,
@@ -160,6 +161,7 @@ export default function HomePage() {
 
   const dropdownRef     = useRef<HTMLDivElement>(null)
   const observationsRef = useRef<HTMLDivElement>(null)
+  const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     const param = new URLSearchParams(window.location.search).get('city') as CitySlug | null
@@ -309,6 +311,15 @@ export default function HomePage() {
             )}
           </div>
         </div>
+
+        {/* Community CTA — light, below mobile search */}
+        <p className="mt-3 text-[12px] text-[#A09080]">
+          想第一时间收到新增宠物友好地点？
+          <button onClick={() => setModalOpen(true)}
+            className="ml-1 text-[#E0813D] font-medium hover:underline">
+            加入豆苗社群 →
+          </button>
+        </p>
         </div>{/* /px-4 */}
       </div>
 
@@ -359,7 +370,7 @@ export default function HomePage() {
             标准化、真实验证、可搜索的宠物友好地图
           </p>
 
-          {/* Airbnb-style unified pill search */}
+          {/* Airbnb-style unified pill search — desktop */}
           <div ref={dropdownRef} className="relative">
             <div className="flex items-stretch bg-white rounded-2xl shadow-[0_4px_32px_rgba(30,18,9,0.10)] border border-[#EDE8E0] overflow-hidden">
               {/* City selector */}
@@ -418,6 +429,14 @@ export default function HomePage() {
               </div>
             )}
           </div>
+          {/* Community CTA — light hint below search */}
+          <p className="mt-5 text-[13px] text-[#A09080]">
+            想第一时间收到新增宠物友好地点？
+            <button onClick={() => setModalOpen(true)}
+              className="ml-1.5 text-[#E0813D] font-medium hover:underline">
+              加入豆苗社群 →
+            </button>
+          </p>
         </div>
       </section>
 
@@ -479,6 +498,26 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Community CTA strip (below observations) ── */}
+      <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 mb-8 md:mb-10">
+        <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A]/60 px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <p className="text-[14px] font-semibold text-[#1E1209]">你也发现了真正欢迎宠物的地方？</p>
+            <p className="text-[12px] text-[#A07855] mt-0.5">第一手观察，帮铲屎官做更好的决策</p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <Link href="/submit-place"
+              className="px-4 py-2 rounded-xl bg-[#1E1209] text-white text-[13px] font-medium hover:bg-[#3A2518] transition-colors">
+              投稿地点
+            </Link>
+            <button onClick={() => setModalOpen(true)}
+              className="px-4 py-2 rounded-xl border border-[#E8DCCB] text-[13px] font-medium text-[#7C5A42] hover:bg-white hover:border-[#D4C5B0] transition-all">
+              加入社群
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* ── Categories ── */}
       <div className="px-4 md:max-w-screen-xl md:mx-auto md:px-8 pb-8 md:pb-12">
@@ -644,6 +683,8 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      <CommunityModal open={modalOpen} onClose={() => setModalOpen(false)} sourcePage="homepage" />
 
       {/* ── Mobile city bottom sheet ── */}
       {sheetOpen && (

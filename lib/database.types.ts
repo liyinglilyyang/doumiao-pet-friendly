@@ -141,6 +141,20 @@ export interface PlaceSubmission {
   place_id: string | null
 }
 
+export type PetType = 'dog' | 'cat' | 'other'
+export type LeadIntent = 'contribute' | 'explore' | 'updates'
+
+export interface CommunityLead {
+  id: string
+  contact: string
+  city: string | null
+  pet_type: PetType | null
+  intent: LeadIntent[] | null
+  source_page: string | null
+  contacted: boolean
+  created_at: string
+}
+
 export interface ProfileRow {
   id: string
   email: string | null
@@ -165,6 +179,11 @@ export interface Database {
         Row: ProfileRow
         Insert: Omit<ProfileRow, 'created_at'>
         Update: Partial<Omit<ProfileRow, 'id' | 'created_at'>>
+      }
+      community_leads: {
+        Row: CommunityLead
+        Insert: Omit<CommunityLead, 'id' | 'created_at' | 'contacted'>
+        Update: Partial<Pick<CommunityLead, 'contacted'>>
       }
     }
   }

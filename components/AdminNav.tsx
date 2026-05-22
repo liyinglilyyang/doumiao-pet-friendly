@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, MapPin, LogOut, ExternalLink, Inbox } from 'lucide-react'
+import { LayoutDashboard, MapPin, LogOut, ExternalLink, Inbox, Users } from 'lucide-react'
 import { getSupabase } from '@/lib/supabaseClient'
 
 const NAV = [
   { href: '/admin/dashboard',   icon: LayoutDashboard, label: '概览' },
   { href: '/admin/places',      icon: MapPin,           label: '商家管理' },
-  { href: '/admin/submissions', icon: Inbox,            label: '投稿审核' },
+  { href: '/admin/submissions',     icon: Inbox,            label: '投稿审核' },
+  { href: '/admin/community-leads', icon: Users,            label: '社群线索' },
 ]
 
 export default function AdminNav() {

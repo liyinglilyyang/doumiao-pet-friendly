@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { Upload, X, CheckCircle2, ArrowLeft, Loader2 } from 'lucide-react'
+import CommunityModal from '@/components/CommunityModal'
 import type { SubmissionCategory, SubmitterType } from '@/lib/database.types'
 
 const CATEGORIES: { value: SubmissionCategory; label: string; emoji: string }[] = [
@@ -115,6 +116,7 @@ export default function SubmitPlacePage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -173,10 +175,10 @@ export default function SubmitPlacePage() {
           <p className="text-[#6B5744] text-[15px] leading-relaxed mb-2">
             提交成功，豆苗团队会核实宠物规则后收录。
           </p>
-          <p className="text-[13px] text-[#A09080] mb-8">
+          <p className="text-[13px] text-[#A09080] mb-6">
             每一次投稿，都让城市对宠物更开放一点。
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
             <Link href="/places" className="px-6 py-2.5 bg-[#1E1209] text-white rounded-xl text-[14px] font-medium text-center">
               浏览地点
             </Link>
@@ -185,7 +187,23 @@ export default function SubmitPlacePage() {
               再投一条
             </button>
           </div>
+
+          {/* Community CTA after success */}
+          <div className="border-t border-[#EDE8E0] pt-6">
+            <p className="text-[14px] font-semibold text-[#1E1209] mb-1">
+              谢谢你帮城市多一个欢迎毛孩子的地方。
+            </p>
+            <p className="text-[12px] text-[#A09080] mb-4">
+              加入豆苗共建群，认识更多同城铲屎官
+            </p>
+            <button onClick={() => setModalOpen(true)}
+              className="w-full py-2.5 border border-[#F5C49A] text-[#E0813D] rounded-xl text-[14px] font-medium hover:bg-[#FFF0E2] transition-colors">
+              加入豆苗共建群
+            </button>
+          </div>
         </div>
+
+        <CommunityModal open={modalOpen} onClose={() => setModalOpen(false)} sourcePage="submit_success" />
       </div>
     )
   }

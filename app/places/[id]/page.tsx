@@ -8,6 +8,7 @@ import {
   ChevronLeft, ChevronRight, X, Loader2,
 } from 'lucide-react'
 import type { PlaceRow } from '@/lib/database.types'
+import CommunityModal from '@/components/CommunityModal'
 import {
   CITY_LABELS, CATEGORY_LABELS, CATEGORY_EMOJIS, VERIFICATION_LABELS,
   PET_SIZE_LABELS, SOURCE_LABELS, buildPlaceTags, buildVerifTag,
@@ -18,6 +19,7 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
   const [place, setPlace] = useState<PlaceRow | null>(null)
   const [loading, setLoading] = useState(true)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     fetch(`/api/places/${id}`)
@@ -204,6 +206,19 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                     )}
                   </div>
                 )}
+              </div>
+
+              {/* Mobile: community update CTA */}
+              <div className="lg:hidden">
+                <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A]/60 px-4 py-3 flex items-center justify-between gap-3">
+                  <p className="text-[12px] text-[#7C5A42] leading-snug">
+                    加入社群，获取最新宠物友好情报
+                  </p>
+                  <button onClick={() => setModalOpen(true)}
+                    className="shrink-0 px-3 py-1.5 rounded-xl border border-[#F5C49A] text-[12px] font-medium text-[#E0813D] bg-white hover:bg-[#FFF0E2] transition-colors">
+                    加入社群
+                  </button>
+                </div>
               </div>
 
               {/* Mobile: contact card (shows on mobile, hidden on lg where it's in sidebar) */}
@@ -491,11 +506,24 @@ export default function PlaceDetailPage({ params }: { params: Promise<{ id: stri
                   </div>
                 )}
               </div>
-            </div>
 
+              {/* Desktop sidebar: community CTA */}
+              <div className="bg-[#FFF8EE] rounded-2xl border border-[#F5C49A]/60 p-4">
+                <p className="text-[13px] text-[#7C5A42] leading-relaxed mb-3">
+                  这家店信息可能会更新，加入社群获取最新宠物友好情报。
+                </p>
+                <button onClick={() => setModalOpen(true)}
+                  className="w-full py-2.5 rounded-xl border border-[#F5C49A] text-[13px] font-medium text-[#E0813D] bg-white hover:bg-[#FFF0E2] transition-colors">
+                  加入社群 / 获取更新
+                </button>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
+
+      <CommunityModal open={modalOpen} onClose={() => setModalOpen(false)} sourcePage="place_detail" />
     </>
   )
 }
